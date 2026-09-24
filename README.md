@@ -33,18 +33,21 @@ The model cannot choose a namespace, workload, deployment, or container. An inci
 
 ## Development
 
-Install the tested dependency set and run all tests:
-
 ~~~
 python -m pip install -c constraints.txt -e ".[dev]"
 python -m pytest
 ~~~
 
-constraints.txt pins the dependency set used by the project. The test suite has a 60-second timeout per test.
-
 ## AKS deployment
 
-The supplied production-style MVP manifest runs two separate workloads: a read-only diagnostic agent and a remediation agent with the narrow Deployment patch permission. Use the authoritative [two-workload deployment guide](docs/two-workload-deployment.md) to create separate identities, configure the authenticated handoff, and apply the manifest. The legacy single-identity commands below are retained for local compatibility only and must not be used for the two-workload deployment.
+The deployment uses two independent workloads:
+
+| Workload | Kubernetes access | Azure access |
+| --- | --- | --- |
+| Diagnostic agent | Read-only Pods, Events, ReplicaSets and Deployments in the managed namespace. | Azure AI Foundry inference. |
+| Remediation agent | Read and patch Deployments in the managed namespace. | ACR tag validation. |
+
+Use a NetworkPolicy-capable CNI. For a production deployment, implement the egress boundary described in [the two-workload guide](docs/two-workload-deployment.md).
 
 ### Configure variables
 
@@ -55,8 +58,9 @@ $resourceGroup = "rg-agentic-ops"
 $aksName = "aks-agentic-ops"
 $acrName = "<YOUR_ACR_NAME>"
 $managedNamespace = "payments"
-$identityName = "id-agentic-ops"
 $identityResourceGroup = $resourceGroup
+$diagnosticIdentityName = "id-agentic-ops-diagnostic"
+$remediationIdentityName = "id-agentic-ops-remediation"
 
 $env:ACR_LOGIN_SERVER = "$acrName.azurecr.io"
 $env:MANAGED_NAMESPACE = $managedNamespace
@@ -68,50 +72,75 @@ az login
 az account set --subscription "<SUBSCRIPTION_ID_OR_NAME>"
 ~~~
 
-### Configure Workload Identity
+### Configure two Workload Identities
 
-Create or look up the user-assigned identity:
+Create both user-assigned identities and obtain the AKS OIDC issuer:
 
 ~~~
-az identity create --name $identityName --resource-group $identityResourceGroup
-$clientId = az identity show --name $identityName --resource-group $identityResourceGroup --query clientId -o tsv
-$principalId = az identity show --name $identityName --resource-group $identityResourceGroup --query principalId -o tsv
+az identity create --name $diagnosticIdentityName --resource-group $identityResourceGroup
+az identity create --name $remediationIdentityName --resource-group $identityResourceGroup
+
+$diagnosticClientId = az identity show --name $diagnosticIdentityName --resource-group $identityResourceGroup --query clientId -o tsv
+$diagnosticPrincipalId = az identity show --name $diagnosticIdentityName --resource-group $identityResourceGroup --query principalId -o tsv
+$remediationClientId = az identity show --name $remediationIdentityName --resource-group $identityResourceGroup --query clientId -o tsv
+$remediationPrincipalId = az identity show --name $remediationIdentityName --resource-group $identityResourceGroup --query principalId -o tsv
 $issuer = az aks show --name $aksName --resource-group $resourceGroup --query oidcIssuerProfile.issuerUrl -o tsv
-$env:AZURE_CLIENT_ID = $clientId
 ~~~
 
-Grant Foundry inference and ACR pull access. Replace the Foundry resource ID with the ID of the resource hosting the model deployment:
+Grant only the required roles:
 
 ~~~
 $foundryResourceId = "<FOUNDRY_RESOURCE_ID>"
 $acrResourceId = az acr show --name $acrName --resource-group $resourceGroup --query id -o tsv
-az role assignment create --assignee-object-id $principalId --assignee-principal-type ServicePrincipal --role "Cognitive Services OpenAI User" --scope $foundryResourceId
-az role assignment create --assignee-object-id $principalId --assignee-principal-type ServicePrincipal --role AcrPull --scope $acrResourceId
-~~~
 
-Create the federated credential used by the ServiceAccount:
-
-~~~
-az identity federated-credential create --name agentic-ops --identity-name $identityName --resource-group $identityResourceGroup --issuer $issuer --subject "system:serviceaccount:agentic-ops:agentic-ops" --audiences "api://AzureADTokenExchange"
+az role assignment create --assignee-object-id $diagnosticPrincipalId --assignee-principal-type ServicePrincipal --role "Cognitive Services OpenAI User" --scope $foundryResourceId
+az role assignment create --assignee-object-id $remediationPrincipalId --assignee-principal-type ServicePrincipal --role AcrPull --scope $acrResourceId
 az aks update --name $aksName --resource-group $resourceGroup --attach-acr $acrName
+~~~
+
+Create one federated credential for each ServiceAccount:
+
+~~~
+az identity federated-credential create --name agentic-ops-diagnostic --identity-name $diagnosticIdentityName --resource-group $identityResourceGroup --issuer $issuer --subject "system:serviceaccount:agentic-ops:agentic-ops-diagnostic" --audiences "api://AzureADTokenExchange"
+az identity federated-credential create --name agentic-ops-remediation --identity-name $remediationIdentityName --resource-group $identityResourceGroup --issuer $issuer --subject "system:serviceaccount:agentic-ops:agentic-ops-remediation" --audiences "api://AzureADTokenExchange"
 ~~~
 
 ### Build and deploy
 
-Build the image in ACR:
+Build the image:
 
 ~~~
 az acr build --registry $acrName --image agentic-ops:0.2.0 .
 ~~~
 
-Create the agent and managed namespaces. Render deploy/aks-agentic-ops.yaml by substituting the six documented values before applying it: AZURE_CLIENT_ID, AZURE_AI_FOUNDRY_ENDPOINT, AZURE_AI_FOUNDRY_DEPLOYMENT, AGENTIC_OPS_IMAGE, MANAGED_NAMESPACE, and ACR_LOGIN_SERVER.
+Create namespaces and the token used by the authenticated diagnostic-to-remediation handoff:
 
 ~~~
 az aks get-credentials --resource-group $resourceGroup --name $aksName --overwrite-existing
 kubectl create namespace agentic-ops --dry-run=client -o yaml | kubectl apply -f -
 kubectl create namespace $env:MANAGED_NAMESPACE --dry-run=client -o yaml | kubectl apply -f -
+kubectl create secret generic agentic-ops-remediation -n agentic-ops --from-literal=token="$(openssl rand -base64 32)"
+~~~
+
+Render all seven placeholders in `deploy/aks-agentic-ops.yaml`: `DIAGNOSTIC_AZURE_CLIENT_ID`, `REMEDIATION_AZURE_CLIENT_ID`, `AZURE_AI_FOUNDRY_ENDPOINT`, `AZURE_AI_FOUNDRY_DEPLOYMENT`, `AGENTIC_OPS_IMAGE`, `MANAGED_NAMESPACE`, and `ACR_LOGIN_SERVER`.
+
+~~~
+$rendered = Get-Content deploy/aks-agentic-ops.yaml -Raw
+$values = @{
+  DIAGNOSTIC_AZURE_CLIENT_ID = $diagnosticClientId
+  REMEDIATION_AZURE_CLIENT_ID = $remediationClientId
+  AZURE_AI_FOUNDRY_ENDPOINT = $env:AZURE_AI_FOUNDRY_ENDPOINT
+  AZURE_AI_FOUNDRY_DEPLOYMENT = $env:AZURE_AI_FOUNDRY_DEPLOYMENT
+  AGENTIC_OPS_IMAGE = $env:AGENTIC_OPS_IMAGE
+  MANAGED_NAMESPACE = $env:MANAGED_NAMESPACE
+  ACR_LOGIN_SERVER = $env:ACR_LOGIN_SERVER
+}
+foreach ($name in $values.Keys) { $rendered = $rendered.Replace("${$name}", $values[$name]) }
+Set-Content deploy/aks-agentic-ops.rendered.yaml $rendered
+
 kubectl apply -f deploy/aks-agentic-ops.rendered.yaml
-kubectl rollout status deployment/agentic-ops -n agentic-ops
+kubectl rollout status deployment/agentic-ops-diagnostic -n agentic-ops
+kubectl rollout status deployment/agentic-ops-remediation -n agentic-ops
 ~~~
 
 ## Demo
@@ -122,29 +151,28 @@ Import the correct image into ACR:
 az acr import --name $acrName --source docker.io/library/nginx:1.27 --image payments-api:1.4.2
 ~~~
 
-Render and apply deploy/demo-payments-api.yaml with the same managed namespace and ACR login-server values. It intentionally references paymnets-api. Then watch recovery:
+Render and apply `deploy/demo-payments-api.yaml` with the same managed namespace and ACR login server values. It intentionally references `paymnets-api`. Then watch recovery:
 
 ~~~
 kubectl get pods -n $env:MANAGED_NAMESPACE -w
-kubectl logs -n agentic-ops deploy/agentic-ops
+kubectl logs -n agentic-ops deploy/agentic-ops-diagnostic
+kubectl logs -n agentic-ops deploy/agentic-ops-remediation
 kubectl get deployment payments-api -n $env:MANAGED_NAMESPACE -o jsonpath='{.spec.template.spec.containers[0].image}'
 ~~~
 
 ## Webhook
 
-The pod watcher is sufficient for the demo. To enable POST /api/v1/incidents, create a token Secret and restart the agent:
+The pod watcher is sufficient for the demo. The manifest exposes the diagnostic API through the cluster-internal `agentic-ops-diagnostic` Service. To enable `POST /api/v1/incidents`, create the optional token Secret and restart only the diagnostic workload:
 
 ~~~
 $bytes = New-Object byte[] 32
 [Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($bytes)
 $token = [Convert]::ToBase64String($bytes)
 kubectl create secret generic agentic-ops-webhook -n agentic-ops --from-literal=token=$token
-kubectl rollout restart deployment/agentic-ops -n agentic-ops
+kubectl rollout restart deployment/agentic-ops-diagnostic -n agentic-ops
 ~~~
 
-Every request must include X-Webhook-Token. The service verifies the namespace and confirms that the submitted workload is the Deployment that owns the Pod.
-
-The supplied Service is cluster-internal. The NetworkPolicy permits traffic only from namespaces labelled agentic-ops/webhook-sender=true and is effective only with a NetworkPolicy-capable CNI. An internet-facing sender requires an explicitly configured and secured ingress or gateway.
+Every request must include `X-Webhook-Token`. The diagnostic NetworkPolicy permits a webhook sender only from namespaces labelled `agentic-ops/webhook-sender=true`; the remediation API accepts traffic only from the diagnostic workload.
 
 | HTTP status | Meaning |
 | --- | --- |
@@ -160,7 +188,7 @@ The supplied Service is cluster-internal. The NetworkPolicy permits traffic only
 
 - Only image-typo remediation is automatic.
 - One namespace, ACR, Deployments, and one failing container per Pod are supported.
-- Incident state and deduplication are in memory; the Deployment intentionally runs one replica.
+- Incident state and deduplication are in memory; the Deployments intentionally run one replica each.
 - Tests use fake Kubernetes, ACR, and Foundry endpoints. Validate identity, network policy, and rollout behaviour in a non-production AKS environment before production use.
 - RBAC permits Deployment patching in the managed namespace. The image-only limit is enforced in code, not Kubernetes RBAC.
 - The model groundedness score is self-reported; registry and policy checks provide the effective safeguards.
@@ -178,4 +206,3 @@ To remove the complete resource group:
 ~~~
 .\scripts\stop-agentic-ops.ps1 -ResourceGroup "rg-agentic-ops" -DeleteResourceGroup
 ~~~
-

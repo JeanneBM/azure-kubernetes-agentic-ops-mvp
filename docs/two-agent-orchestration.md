@@ -1,18 +1,18 @@
-# Uzasadnienie architektury dwóch agentów
+# Rationale for the Two-Agent Architecture
 
-## Podział odpowiedzialności
+## Separation of responsibilities
 
-| Agent | Uprawnienia | Wynik |
+| Agent | Permissions | Output |
 | --- | --- | --- |
-| Diagnostyczny | Może korzystać z wyszukiwania internetowego oraz z danych tylko do odczytu z AKS. | Ustrukturyzowane fakty, ocena pewności i pojedyncza propozycja naprawy. |
-| Remediacyjny | Nie ma przeglądarki, wyszukiwania ani zależności od zewnętrznych wyników. Dostaje wyłącznie kontrakt Facts. | Samodzielnie autoryzuje operację, wykonuje ją i sprawdza rollout. |
+| Diagnostic agent | May use internet search and read-only AKS data. | Structured facts, a confidence score, and one remediation proposal. |
+| Remediation agent | Has no browser, search capability, or dependency on external results. It receives only the Facts contract. | Independently authorizes the operation, executes it, and verifies the rollout. |
 
-## Dlaczego tak
+## Why this design
 
-Wynik wyszukiwania internetowego jest przydatny do diagnozy, ale jest zewnętrznym i nieufnym wejściem. Może być nieaktualny, błędny albo zawierać instrukcje nieistotne dla incydentu. Dlatego pierwszy agent nie dostaje dostępu do wykonawcy ani prawa wyboru namespace, Deploymentu lub kontenera.
+Internet-search output can help diagnose an incident, but it is external and untrusted input. It can be outdated, incorrect, or contain instructions unrelated to the incident. The first agent therefore has no access to the executor and cannot choose the namespace, Deployment, or container.
 
-Drugi agent jest celowo węższy. Nie korzysta z sieci ani z narzędzi researchu, więc nie może rozszerzyć zakresu zadania pod wpływem strony internetowej lub odpowiedzi modelu. Weryfikuje lokalne fakty i reguły bezpieczeństwa: dozwolony rejestr, małą różnicę nazwy obrazu, istnienie poprawionego obrazu w ACR oraz właściwy cel w AKS.
+The second agent is intentionally narrower. It does not use the network or research tools, so a web page or model response cannot expand the operation's scope. It verifies local facts and safety rules: an allowed registry, a small image-name change, the corrected image's existence in ACR, and the correct AKS target.
 
-## Warunek zakończenia
+## Completion condition
 
-Incydent ma status resolved wyłącznie wtedy, gdy drugi agent pomyślnie autoryzuje operację, ją wykona i niezależnie potwierdzi zdrowy rollout. Każda odmowa polityki, błąd wykonania, błąd infrastruktury albo nieudana weryfikacja drugiego agenta kończy incydent jako escalated z powodem i dowodami do analizy przez człowieka.
+An incident has status resolved only when the second agent successfully authorizes the operation, executes it, and independently confirms a healthy rollout. A policy rejection, execution error, infrastructure error, or failed verification by the second agent ends the incident as escalated, with the reason and evidence available for human review.

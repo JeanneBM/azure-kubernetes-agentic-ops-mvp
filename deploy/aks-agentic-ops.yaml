@@ -1,19 +1,25 @@
-# Placeholders (${...}) are substituted before apply, see README.
-# The managed namespace (${MANAGED_NAMESPACE}) must already exist.
+# Placeholders are substituted before apply, see docs/two-agent-deployment.md.
+# This manifest deliberately runs the diagnostic and remediation agents separately.
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: agentic-ops
+  name: agentic-ops-diagnostic
   namespace: agentic-ops
   annotations:
-    azure.workload.identity/client-id: "${AZURE_CLIENT_ID}"
+    azure.workload.identity/client-id: "${DIAGNOSTIC_AZURE_CLIENT_ID}"
 ---
-# Permissions exist ONLY in the managed namespace. The agent can read pods/events/logs,
-# resolve Pod -> ReplicaSet -> Deployment, and patch Deployments. It cannot delete pods.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: agentic-ops-remediation
+  namespace: agentic-ops
+  annotations:
+    azure.workload.identity/client-id: "${REMEDIATION_AZURE_CLIENT_ID}"
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: agentic-ops
+  name: agentic-ops-diagnostic
   namespace: ${MANAGED_NAMESPACE}
 rules:
   - apiGroups: [""]
@@ -23,8 +29,15 @@ rules:
     resources: ["pods/log", "events"]
     verbs: ["get", "list"]
   - apiGroups: ["apps"]
-    resources: ["replicasets"]
+    resources: ["replicasets", "deployments"]
     verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: agentic-ops-remediation
+  namespace: ${MANAGED_NAMESPACE}
+rules:
   - apiGroups: ["apps"]
     resources: ["deployments"]
     verbs: ["get", "patch"]
@@ -32,32 +45,44 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: agentic-ops
+  name: agentic-ops-diagnostic
   namespace: ${MANAGED_NAMESPACE}
 subjects:
   - kind: ServiceAccount
-    name: agentic-ops
+    name: agentic-ops-diagnostic
     namespace: agentic-ops
 roleRef:
   kind: Role
-  name: agentic-ops
+  name: agentic-ops-diagnostic
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: agentic-ops-remediation
+  namespace: ${MANAGED_NAMESPACE}
+subjects:
+  - kind: ServiceAccount
+    name: agentic-ops-remediation
+    namespace: agentic-ops
+roleRef:
+  kind: Role
+  name: agentic-ops-remediation
   apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: agentic-ops
+  name: agentic-ops-remediation
   namespace: agentic-ops
 spec:
   selector:
     app: agentic-ops
+    role: remediation
   ports:
     - port: 8080
       targetPort: 8080
 ---
-# Only pods in namespaces labelled agentic-ops/webhook-sender=true may reach the webhook.
-# The pod watcher does not use the Service at all. NOTE: NetworkPolicy is enforced only if the AKS
-# cluster was created with a network policy engine (azure, calico or cilium); otherwise it is ignored.
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -70,6 +95,14 @@ spec:
   policyTypes: ["Ingress"]
   ingress:
     - from:
+        - podSelector:
+            matchLabels:
+              app: agentic-ops
+              role: diagnostic
+      ports:
+        - protocol: TCP
+          port: 8080
+    - from:
         - namespaceSelector:
             matchLabels:
               agentic-ops/webhook-sender: "true"
@@ -80,32 +113,34 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: agentic-ops
+  name: agentic-ops-diagnostic
   namespace: agentic-ops
 spec:
-  # One replica on purpose: incident state is in memory. Recreate avoids two pods
-  # running side by side (and both reacting to the same alert) during an update.
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
       app: agentic-ops
+      role: diagnostic
   template:
     metadata:
       labels:
         app: agentic-ops
+        role: diagnostic
         azure.workload.identity/use: "true"
     spec:
-      serviceAccountName: agentic-ops
+      serviceAccountName: agentic-ops-diagnostic
       securityContext:
         runAsNonRoot: true
       containers:
-        - name: orchestrator
+        - name: diagnostic-agent
           image: "${AGENTIC_OPS_IMAGE}"
           ports:
             - containerPort: 8080
           env:
+            - name: AGENTIC_OPS_ROLE
+              value: diagnostic
             - name: AGENTIC_OPS_NAMESPACE
               value: "${MANAGED_NAMESPACE}"
             - name: AGENTIC_OPS_ALLOWED_REGISTRIES
@@ -114,7 +149,13 @@ spec:
               value: "${AZURE_AI_FOUNDRY_ENDPOINT}"
             - name: AZURE_AI_FOUNDRY_DEPLOYMENT
               value: "${AZURE_AI_FOUNDRY_DEPLOYMENT}"
-            # Without this Secret the webhook answers 503 and only the pod watcher works.
+            - name: AGENTIC_OPS_REMEDIATION_URL
+              value: http://agentic-ops-remediation.agentic-ops.svc.cluster.local:8080
+            - name: AGENTIC_OPS_REMEDIATION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: agentic-ops-remediation
+                  key: token
             - name: AGENTIC_OPS_WEBHOOK_TOKEN
               valueFrom:
                 secretKeyRef:
@@ -125,10 +166,54 @@ spec:
             requests: {cpu: 50m, memory: 128Mi}
             limits: {memory: 256Mi}
           readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 8080
+            httpGet: {path: /healthz, port: 8080}
           livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 8080
+            httpGet: {path: /healthz, port: 8080}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agentic-ops-remediation
+  namespace: agentic-ops
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: agentic-ops
+      role: remediation
+  template:
+    metadata:
+      labels:
+        app: agentic-ops
+        role: remediation
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: agentic-ops-remediation
+      securityContext:
+        runAsNonRoot: true
+      containers:
+        - name: remediation-agent
+          image: "${AGENTIC_OPS_IMAGE}"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: AGENTIC_OPS_ROLE
+              value: remediation
+            - name: AGENTIC_OPS_NAMESPACE
+              value: "${MANAGED_NAMESPACE}"
+            - name: AGENTIC_OPS_ALLOWED_REGISTRIES
+              value: "${ACR_LOGIN_SERVER}"
+            - name: AGENTIC_OPS_REMEDIATION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: agentic-ops-remediation
+                  key: token
+          resources:
+            requests: {cpu: 50m, memory: 128Mi}
+            limits: {memory: 256Mi}
+          readinessProbe:
+            httpGet: {path: /healthz, port: 8080}
+          livenessProbe:
+            httpGet: {path: /healthz, port: 8080}

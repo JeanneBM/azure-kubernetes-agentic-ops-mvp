@@ -1,4 +1,4 @@
-# Placeholders are substituted before apply, see docs/two-agent-deployment.md.
+# Placeholders are substituted before apply; see docs/two-workload-deployment.md.
 # This manifest deliberately runs the diagnostic and remediation agents separately.
 apiVersion: v1
 kind: ServiceAccount
@@ -73,6 +73,19 @@ roleRef:
 apiVersion: v1
 kind: Service
 metadata:
+  name: agentic-ops-diagnostic
+  namespace: agentic-ops
+spec:
+  selector:
+    app: agentic-ops
+    role: diagnostic
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: agentic-ops-remediation
   namespace: agentic-ops
 spec:
@@ -86,12 +99,33 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: agentic-ops-ingress
+  name: agentic-ops-diagnostic-ingress
   namespace: agentic-ops
 spec:
   podSelector:
     matchLabels:
       app: agentic-ops
+      role: diagnostic
+  policyTypes: ["Ingress"]
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              agentic-ops/webhook-sender: "true"
+      ports:
+        - protocol: TCP
+          port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: agentic-ops-remediation-ingress
+  namespace: agentic-ops
+spec:
+  podSelector:
+    matchLabels:
+      app: agentic-ops
+      role: remediation
   policyTypes: ["Ingress"]
   ingress:
     - from:
@@ -99,13 +133,6 @@ spec:
             matchLabels:
               app: agentic-ops
               role: diagnostic
-      ports:
-        - protocol: TCP
-          port: 8080
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              agentic-ops/webhook-sender: "true"
       ports:
         - protocol: TCP
           port: 8080

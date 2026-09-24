@@ -7,22 +7,18 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Callable, Protocol
 
-from .contracts import (
-    ActionRequest,
-    Facts,
-    Incident,
-    IncidentStatus,
-    IncidentTrigger,
-    Recommendation,
-)
+from .agents import RemediationAgent, SafeRemediationAgent
+from .contracts import ActionRequest, Facts, Incident, IncidentStatus, IncidentTrigger, Recommendation
 from .safety import ActionExecutor, OutOfScope, PolicyViolation, SelfCurePolicy
 
 audit = logging.getLogger("agentic_ops.audit")
 
 
 class DiagnosticProvider(Protocol):
+    """First agent: collect read-only facts and a proposed action."""
+
     def collect(self, trigger: IncidentTrigger) -> Facts:
-        """Collect read-only, source-backed facts."""
+        """Collect source-backed facts."""
 
 
 @dataclass(frozen=True)
@@ -33,18 +29,20 @@ class IncidentResult:
 
 
 class IncidentOrchestrator:
-    """Coordinates incident handling.
+    """Coordinate a research-capable diagnostic agent and isolated executor.
 
-    Every failure path ends in ESCALATED with a reason; nothing here raises
-    except OutOfScope, which is raised before any cluster or model access.
+    Agent 1 may use research sources to produce a typed proposal. Agent 2
+    receives only Facts, has no search or browser dependency, and independently
+    authorizes, executes, and verifies it. A failure at either stage escalates.
     """
 
     def __init__(
         self,
         diagnostics: DiagnosticProvider,
-        executor: ActionExecutor,
-        policy: SelfCurePolicy,
+        executor: ActionExecutor | None = None,
+        policy: SelfCurePolicy | None = None,
         *,
+        remediation_agent: RemediationAgent | None = None,
         groundedness_threshold: float = 0.85,
         cooldown: timedelta = timedelta(minutes=15),
         clock: Callable[[], datetime] | None = None,
@@ -53,9 +51,15 @@ class IncidentOrchestrator:
             raise ValueError("groundedness_threshold must be between 0 and 1")
         if cooldown < timedelta(0):
             raise ValueError("cooldown cannot be negative")
+        if remediation_agent is None:
+            if executor is None or policy is None:
+                raise ValueError("executor and policy are required without remediation_agent")
+            remediation_agent = SafeRemediationAgent(policy, executor)
+        elif executor is not None or policy is not None:
+            raise ValueError("pass either remediation_agent or executor and policy, not both")
+
         self._diagnostics = diagnostics
-        self._executor = executor
-        self._policy = policy
+        self._remediation_agent = remediation_agent
         self._groundedness_threshold = groundedness_threshold
         self._cooldown = cooldown
         self._clock = clock or (lambda: datetime.now(timezone.utc))
@@ -63,7 +67,7 @@ class IncidentOrchestrator:
         self._lock = threading.Lock()
 
     def manages(self, namespace: str) -> bool:
-        return self._policy.namespace_allowed(namespace)
+        return self._remediation_agent.manages(namespace)
 
     def handle(self, trigger: IncidentTrigger) -> IncidentResult:
         if not self.manages(trigger.namespace):
@@ -77,7 +81,6 @@ class IncidentOrchestrator:
                 existing[0].status is IncidentStatus.OPEN or now - existing[1] < self._cooldown
             ):
                 return IncidentResult(existing[0], deduplicated=True)
-            # Reserve the key before doing any work so concurrent signals dedupe.
             self._incidents[key] = (
                 Incident(trigger, IncidentStatus.OPEN, Facts((), 0.0)),
                 now,
@@ -93,30 +96,37 @@ class IncidentOrchestrator:
         facts = Facts((), 0.0)
         action: ActionRequest | None = None
         executed = False
+        stage = "diagnostic agent"
         try:
             facts = self._diagnostics.collect(trigger)
             if facts.groundedness < self._groundedness_threshold:
                 return self._escalate(
                     trigger, facts,
-                    f"groundedness {facts.groundedness:.2f} is below {self._groundedness_threshold:.2f}",
+                    f"diagnostic agent groundedness {facts.groundedness:.2f} is below "
+                    f"{self._groundedness_threshold:.2f}",
                 ), False
             if facts.safe_action is None:
-                return self._escalate(trigger, facts, "no safe action proposed"), False
+                return self._escalate(
+                    trigger, facts, "diagnostic agent proposed no safe action"
+                ), False
 
-            action = self._policy.authorize(trigger, facts)
-            self._executor.execute(action)
-            executed = True
-            if self._executor.verify(action):
-                return Incident(trigger, IncidentStatus.RESOLVED, facts, action=action), True
+            stage = "second agent"
+            outcome = self._remediation_agent.remediate(trigger, facts)
+            action, executed = outcome.action, outcome.executed
+            if outcome.successful:
+                return Incident(trigger, IncidentStatus.RESOLVED, facts, action=action), executed
             return self._escalate(
-                trigger, facts, "action executed but the workload did not become healthy", action
-            ), True
+                trigger,
+                facts,
+                outcome.reason or "second agent could not complete remediation",
+                action,
+            ), executed
         except PolicyViolation as violation:
-            return self._escalate(trigger, facts, f"policy: {violation}"), executed
-        except Exception as error:  # noqa: BLE001 - any failure must end in escalation
+            return self._escalate(trigger, facts, f"{stage} policy: {violation}", action), executed
+        except Exception as error:  # noqa: BLE001
             audit.exception("incident handling failed")
             return self._escalate(
-                trigger, facts, f"{type(error).__name__}: {error}", action
+                trigger, facts, f"{stage} {type(error).__name__}: {error}", action
             ), executed
 
     @staticmethod
@@ -143,7 +153,7 @@ class IncidentOrchestrator:
     @staticmethod
     def _audit(incident: Incident, executed: bool) -> None:
         audit.info(json.dumps({
-            "event": "incident_decision",
+            "event": "two_agent_incident_decision",
             "correlation_id": incident.trigger.correlation_id,
             "key": incident.trigger.deduplication_key,
             "trigger_reason": incident.trigger.reason,

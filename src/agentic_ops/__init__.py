@@ -1,5 +1,6 @@
-"""Core contracts and orchestration for Azure Kubernetes Agentic Ops."""
+"""Core contracts and two-agent orchestration for Azure Kubernetes Agentic Ops."""
 
+from .agents import RemediationAgent, RemediationOutcome, SafeRemediationAgent
 from .contracts import (
     ActionRequest,
     Evidence,
@@ -20,6 +21,9 @@ __all__ = [
     "IncidentStatus",
     "PullFailure",
     "Recommendation",
+    "RemediationAgent",
+    "RemediationOutcome",
+    "SafeRemediationAgent",
     "IncidentOrchestrator",
     "IncidentResult",
     "OutOfScope",

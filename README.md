@@ -193,12 +193,6 @@ Every request must include `X-Webhook-Token`. The diagnostic NetworkPolicy permi
 - RBAC permits Deployment patching in the managed namespace. The image-only limit is enforced in code, not Kubernetes RBAC.
 - The model groundedness score is self-reported; registry and policy checks provide the effective safeguards.
 
-## Shutdown
-
-Remove the application and its namespace-scoped RBAC:
-
-~~~
-.\scripts\stop-agentic-ops.ps1 -ResourceGroup "rg-agentic-ops" -AksName "aks-agentic-ops" -ManagedNamespace "payments"
 ~~~
 
 To remove the complete resource group:

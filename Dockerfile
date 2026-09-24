@@ -7,5 +7,5 @@ RUN pip install --no-cache-dir -c constraints.txt .
 
 USER 10001
 EXPOSE 8080
-# build_app() reads the cluster config and environment at start-up, not at import time.
-CMD ["uvicorn", "agentic_ops.web:build_app", "--factory", "--host", "0.0.0.0", "--port", "8080"]
+# The deployed manifest sets AGENTIC_OPS_ROLE to diagnostic or remediation.
+CMD ["uvicorn", "agentic_ops.split_app:build_app", "--factory", "--host", "0.0.0.0", "--port", "8080"]

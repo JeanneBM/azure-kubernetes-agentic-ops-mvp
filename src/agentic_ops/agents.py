@@ -50,6 +50,6 @@ class SafeRemediationAgent:
                 action=action,
                 executed=True,
                 successful=False,
-                reason="second agent could not verify a healthy rollout",
+                reason="second agent action executed but the workload did not become healthy",
             )
         return RemediationOutcome(action=action, executed=True, successful=True)

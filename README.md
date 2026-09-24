@@ -44,7 +44,7 @@ constraints.txt pins the dependency set used by the project. The test suite has 
 
 ## AKS deployment
 
-The agent runs in the agentic-ops namespace and manages one application namespace. Its Kubernetes Role is bound only in that managed namespace.
+The supplied production-style MVP manifest runs two separate workloads: a read-only diagnostic agent and a remediation agent with the narrow Deployment patch permission. Use the authoritative [two-workload deployment guide](docs/two-workload-deployment.md) to create separate identities, configure the authenticated handoff, and apply the manifest. The legacy single-identity commands below are retained for local compatibility only and must not be used for the two-workload deployment.
 
 ### Configure variables
 

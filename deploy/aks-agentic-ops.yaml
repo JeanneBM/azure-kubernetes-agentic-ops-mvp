@@ -1,0 +1,134 @@
+# Placeholders (${...}) are substituted before apply, see README.
+# The managed namespace (${MANAGED_NAMESPACE}) must already exist.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: agentic-ops
+  namespace: agentic-ops
+  annotations:
+    azure.workload.identity/client-id: "${AZURE_CLIENT_ID}"
+---
+# Permissions exist ONLY in the managed namespace. The agent can read pods/events/logs,
+# resolve Pod -> ReplicaSet -> Deployment, and patch Deployments. It cannot delete pods.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: agentic-ops
+  namespace: ${MANAGED_NAMESPACE}
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods/log", "events"]
+    verbs: ["get", "list"]
+  - apiGroups: ["apps"]
+    resources: ["replicasets"]
+    verbs: ["get"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: agentic-ops
+  namespace: ${MANAGED_NAMESPACE}
+subjects:
+  - kind: ServiceAccount
+    name: agentic-ops
+    namespace: agentic-ops
+roleRef:
+  kind: Role
+  name: agentic-ops
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agentic-ops
+  namespace: agentic-ops
+spec:
+  selector:
+    app: agentic-ops
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+# Only pods in namespaces labelled agentic-ops/webhook-sender=true may reach the webhook.
+# The pod watcher does not use the Service at all. NOTE: NetworkPolicy is enforced only if the AKS
+# cluster was created with a network policy engine (azure, calico or cilium); otherwise it is ignored.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: agentic-ops-ingress
+  namespace: agentic-ops
+spec:
+  podSelector:
+    matchLabels:
+      app: agentic-ops
+  policyTypes: ["Ingress"]
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              agentic-ops/webhook-sender: "true"
+      ports:
+        - protocol: TCP
+          port: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agentic-ops
+  namespace: agentic-ops
+spec:
+  # One replica on purpose: incident state is in memory. Recreate avoids two pods
+  # running side by side (and both reacting to the same alert) during an update.
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: agentic-ops
+  template:
+    metadata:
+      labels:
+        app: agentic-ops
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: agentic-ops
+      securityContext:
+        runAsNonRoot: true
+      containers:
+        - name: orchestrator
+          image: "${AGENTIC_OPS_IMAGE}"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: AGENTIC_OPS_NAMESPACE
+              value: "${MANAGED_NAMESPACE}"
+            - name: AGENTIC_OPS_ALLOWED_REGISTRIES
+              value: "${ACR_LOGIN_SERVER}"
+            - name: AZURE_AI_FOUNDRY_ENDPOINT
+              value: "${AZURE_AI_FOUNDRY_ENDPOINT}"
+            - name: AZURE_AI_FOUNDRY_DEPLOYMENT
+              value: "${AZURE_AI_FOUNDRY_DEPLOYMENT}"
+            # Without this Secret the webhook answers 503 and only the pod watcher works.
+            - name: AGENTIC_OPS_WEBHOOK_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: agentic-ops-webhook
+                  key: token
+                  optional: true
+          resources:
+            requests: {cpu: 50m, memory: 128Mi}
+            limits: {memory: 256Mi}
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080

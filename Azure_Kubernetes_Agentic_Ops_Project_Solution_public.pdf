@@ -1,0 +1,2036 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<<
+/Producer (pypdf)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 8
+/Kids [ 4 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Contents 5 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font 6 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+5 0 obj
+<<
+/Length 7261
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+0 .470588 .831373 RG
+1.2 w
+n 51.02362 807.874 m 544.252 807.874 l S
+BT /F1 7.5 Tf 9 TL ET
+.352941 .415686 .478431 rg
+BT 1 0 0 1 51.02362 813.5433 Tm (Azure Kubernetes Agentic Ops \227 Project Solution Document) Tj T* ET
+n 51.02362 34.01575 m 544.252 34.01575 l S
+BT 1 0 0 1 51.02362 22.67717 Tm (MVP v0.3.0) Tj T* ET
+BT 1 0 0 1 520.4845 22.67717 Tm (Page 1) Tj T* ET
+Q
+q
+1 0 0 1 57.02362 779.1969 cm
+Q
+q
+1 0 0 1 57.02362 755.1969 cm
+q
+.043137 .239216 .360784 rg
+BT 1 0 0 1 0 4 Tm /F2 20 Tf 24 TL 93.36417 0 Td (Azure Kubernetes Agentic Ops) Tj T* -93.36417 0 Td ET
+Q
+Q
+q
+1 0 0 1 57.02362 737.1969 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F1 11 Tf 14 TL 175.5052 0 Td (Project Solution Document) Tj T* -175.5052 0 Td ET
+Q
+Q
+q
+1 0 0 1 57.02362 711.1969 cm
+q
+BT 1 0 0 1 0 15 Tm 127.5652 0 Td 12 TL /F1 9 Tf .352941 .415686 .478431 rg (Safety-First Incident Agent for Azure Kubernetes Service) Tj  T* -35.74353 0 Td (Architecture \267 Observability \267 Evaluation \267 Workflow \267 Two-Workload Design) Tj T* -91.82167 0 Td ET
+Q
+Q
+q
+1 0 0 1 57.02362 690.6929 cm
+Q
+q
+1 0 0 1 57.02362 660.6929 cm
+q
+.043137 .239216 .360784 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (1. Executive Summary) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 618.6929 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 27 Tm /F1 9 Tf 12 TL 1.787025 Tw (Azure Kubernetes Agentic Ops is a safety-first, event-driven incident agent designed for Azure Kubernetes Service) Tj T* 0 Tw 2.289739 Tw (\(AKS\). The solution implements a controlled autonomy model in which safe, reversible conditions are remediated) Tj T* 0 Tw (automatically, while all other cases are escalated with structured evidence for human review.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 565.6929 cm
+q
+BT 1 0 0 1 0 39 Tm .13669 Tw 12 TL /F1 9 Tf 0 0 0 rg (The current Minimum Viable Product \(MVP\) focuses on a single, high-value remediation path: correcting an image-name) Tj T* 0 Tw 1.337025 Tw (typo in an Azure Container Registry \(ACR\) Deployment \(for example, ) Tj /F2 9 Tf (paymnets-api ) Tj /F3 9 Tf 12 TL (\256) Tj /F2 9 Tf 12 TL ( payments-api) Tj /F1 9 Tf (\). This narrow) Tj T* 0 Tw 2.918112 Tw (scope enables rigorous safety guarantees while demonstrating the full agentic loop\227detection, diagnosis, policy) Tj T* 0 Tw (authorization, action, verification, and audit.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 512.6929 cm
+q
+BT 1 0 0 1 0 39 Tm 2.099304 Tw 12 TL /F2 9 Tf 0 0 0 rg (Architecture update \(v0.3\):) Tj /F1 9 Tf ( the production deployment runs as ) Tj /F2 9 Tf (two independently authenticated workloads) Tj /F1 9 Tf (\227a) Tj T* 0 Tw 1.615027 Tw (read-only Diagnostic agent and a narrow-scope Remediation agent\227with an authenticated internal handoff of typed) Tj T* 0 Tw .929453 Tw (Facts. Separate Workload Identities, RBAC, and egress boundaries harden the safety model beyond a single-process) Tj T* 0 Tw (design.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 471.6929 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 27 Tm /F1 9 Tf 12 TL .53731 Tw (The broader platform vision organizes operations into three support layers\227K8s Self-Cure, Agent Support, and Human) Tj T* 0 Tw 1.10209 Tw (Support\227so that repetitive toil is removed from on-call shifts and human experts receive complete, grounded context) Tj T* 0 Tw (only when judgment is required.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 441.6929 cm
+q
+.043137 .239216 .360784 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (2. Business Problem and Goals) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 417.6929 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (2.1 Problem Statement) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 377.6929 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 27 Tm /F1 9 Tf 12 TL .539873 Tw (Cluster, networking, storage, RBAC, scheduling, and configuration incidents force engineers to switch between kubectl,) Tj T* 0 Tw .03649 Tw (Prometheus, Grafana, Loki, documentation, and ticketing systems. The result is elevated mean time to recovery \(MTTR\),) Tj T* 0 Tw (inconsistent responses, and significant on-call load.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 353.6929 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (2.2 Goals) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 327.6929 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Reduce median time-to-RCA) Tj /F1 9 Tf ( \227 from incident creation to a grounded diagnosis and recommendation, measured) Tj T* (against the current manual baseline.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 303.6929 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Re-validate quality with every release) Tj /F1 9 Tf ( \227 through automated evaluation gates on groundedness, safety, and) Tj T* (diagnostic accuracy.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 290.6929 cm
+q
+BT 1 0 0 1 8 2 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Preserve human authority) Tj /F1 9 Tf ( \227 outside a tightly defined whitelist of safe actions; the agent never invents cluster state.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 266.6929 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Enforce separation of duties) Tj /F1 9 Tf ( \227 diagnostic inference and write capability never share the same identity or process) Tj T* (boundary.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 242.6929 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (2.3 Target Audience) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 214.6929 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 15 Tm /F1 9 Tf 12 TL 1.466239 Tw (Platform Engineering, SRE, Cloud Operations, on-call teams, and technical leads who need fast, reliable root-cause) Tj T* 0 Tw (analysis.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 184.6929 cm
+q
+.043137 .239216 .360784 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (3. Solution Overview) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 160.6929 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (3.1 Three Support Layers) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 144.6929 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (The platform operates through three coordinated layers:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.02362 71.69291 cm
+q
+.043137 .239216 .360784 rg
+n 0 68 493.2283 -16 re f*
+.933333 .952941 .968627 rg
+n 0 26 493.2283 -26 re f*
+1 1 1 rg
+BT /F2 8 Tf 12 TL ET
+q
+1 0 0 1 4 55 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL (Layer) Tj T* ET
+Q
+Q
+q
+1 0 0 1 94.70866 55 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL (Responsibility) Tj T* ET
+Q
+Q
+0 0 0 rg
+BT /F1 8 Tf 12 TL ET
+q
+1 0 0 1 4 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (K8s Self-Cure) Tj T* ET
+Q
+Q
+q
+1 0 0 1 94.70866 29 cm
+q
+BT 1 0 0 1 0 12 Tm 10 TL /F1 8 Tf 0 0 0 rg (Executes only whitelisted, safe, reversible actions without waiting for approval \(in the MVP: ) Tj /F2 8 Tf (fix_image) Tj /F1 8 Tf ( under) Tj T* (strict policy, performed by the Remediation agent\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 13 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Agent Support) Tj T* ET
+Q
+Q
+q
+1 0 0 1 94.70866 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (Read-only diagnostics: gathers source-backed facts from the cluster and correlating services; proposes actions) Tj T* (treated as untrusted input \(Diagnostic agent + Foundry\).) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .827451 .870588 RG
+.4 w
+n 0 68 m 493.2283 68 l S
+n 0 0 m 0 68 l S
+n 493.2283 0 m 493.2283 68 l S
+n 0 0 m 493.2283 0 l S
+n 0 52 m 493.2283 52 l S
+n 0 26 m 493.2283 26 l S
+n 90.70866 0 m 90.70866 68 l S
+Q
+Q
+Q
+ 
+
+endstream
+endobj
+6 0 obj
+<<
+/F1 7 0 R
+/F2 8 0 R
+/F3 9 0 R
+>>
+endobj
+7 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+8 0 obj
+<<
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+9 0 obj
+<<
+/BaseFont /Symbol
+/Name /F3
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+10 0 obj
+<<
+/Contents 11 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font 6 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+11 0 obj
+<<
+/Length 4212
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+0 .470588 .831373 RG
+1.2 w
+n 51.02362 807.874 m 544.252 807.874 l S
+BT /F1 7.5 Tf 9 TL ET
+.352941 .415686 .478431 rg
+BT 1 0 0 1 51.02362 813.5433 Tm (Azure Kubernetes Agentic Ops \227 Project Solution Document) Tj T* ET
+n 51.02362 34.01575 m 544.252 34.01575 l S
+BT 1 0 0 1 51.02362 22.67717 Tm (MVP v0.3.0) Tj T* ET
+BT 1 0 0 1 520.4845 22.67717 Tm (Page 2) Tj T* ET
+Q
+q
+1 0 0 1 51.02362 748.5354 cm
+q
+.043137 .239216 .360784 rg
+n 0 42 493.2283 -16 re f*
+1 1 1 rg
+BT /F2 8 Tf 12 TL ET
+q
+1 0 0 1 4 29 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL (Layer) Tj T* ET
+Q
+Q
+q
+1 0 0 1 94.70866 29 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL (Responsibility) Tj T* ET
+Q
+Q
+0 0 0 rg
+BT /F1 8 Tf 12 TL ET
+q
+1 0 0 1 4 13 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Human Support) Tj T* ET
+Q
+Q
+q
+1 0 0 1 94.70866 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (Approval, escalation, and higher-impact decisions. Receives full RCA, evidence sources, and recommended) Tj T* (next steps.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .827451 .870588 RG
+.4 w
+n 0 42 m 493.2283 42 l S
+n 0 26 m 0 42 l S
+n 0 0 m 0 26 l S
+n 493.2283 26 m 493.2283 42 l S
+n 493.2283 0 m 493.2283 26 l S
+n 0 0 m 493.2283 0 l S
+n 0 26 m 493.2283 26 l S
+n 90.70866 26 m 90.70866 42 l S
+n 90.70866 0 m 90.70866 26 l S
+Q
+Q
+Q
+q
+1 0 0 1 57.02362 740.0315 cm
+Q
+q
+1 0 0 1 57.02362 716.0315 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (3.2 Design Principles) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 701.0315 cm
+q
+BT 1 0 0 1 8 2 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Tools are the source of truth) Tj /F1 9 Tf ( \227 cluster state is never invented; every fact carries an explicit source.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 677.0315 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Model output is untrusted) Tj /F1 9 Tf ( \227 the LLM may propose only a corrected image reference; SelfCurePolicy applies) Tj T* (deterministic checks before any write.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 653.0315 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Least privilege + separation of duties) Tj /F1 9 Tf ( \227 two Workload Identities, namespace-scoped RBAC, allowlisted registries,) Tj T* (NetworkPolicy, and no Foundry access on the remediation path.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 629.0315 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Event-driven activation) Tj /F1 9 Tf ( \227 the system does not poll without purpose; it reacts to ImagePullBackOff / ErrImagePull) Tj T* (\(or webhook triggers\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 605.0315 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Auditability) Tj /F1 9 Tf ( \227 every decision emits a structured audit event with correlation ID, status, reason, groundedness, and) Tj T* (evidence sources.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 581.0315 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (3.3 MVP Scope) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 553.0315 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 15 Tm /F1 9 Tf 12 TL .346397 Tw (The MVP automatically corrects one narrowly defined condition: an image-name typo in one ACR Deployment. All other) Tj T* 0 Tw (cases are escalated with collected evidence. Supported constraints include:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 537.0315 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 One managed application namespace and one allowlisted ACR.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 524.0315 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Deployments only \(Pod ) Tj /F3 9 Tf 11 TL (\256) Tj /F1 9 Tf 11 TL ( ReplicaSet ) Tj /F3 9 Tf 11 TL (\256) Tj /F1 9 Tf 11 TL ( Deployment ownership must be established\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 511.0315 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Exactly one container failing to pull its image.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 498.0315 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 In-memory incident state and deduplication \(single replica per workload by design\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 485.0315 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Two-workload runtime: Diagnostic \(read-only + Foundry\) and Remediation \(patch + ACR verify\).) Tj T* ET
+Q
+Q
+ 
+
+endstream
+endobj
+12 0 obj
+<<
+/Contents 13 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font 6 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+13 0 obj
+<<
+/Length 10164
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+0 .470588 .831373 RG
+1.2 w
+n 51.02362 807.874 m 544.252 807.874 l S
+BT /F1 7.5 Tf 9 TL ET
+.352941 .415686 .478431 rg
+BT 1 0 0 1 51.02362 813.5433 Tm (Azure Kubernetes Agentic Ops \227 Project Solution Document) Tj T* ET
+n 51.02362 34.01575 m 544.252 34.01575 l S
+BT 1 0 0 1 51.02362 22.67717 Tm (MVP v0.3.0) Tj T* ET
+BT 1 0 0 1 520.4845 22.67717 Tm (Page 3) Tj T* ET
+Q
+q
+1 0 0 1 57.02362 774.5354 cm
+q
+.043137 .239216 .360784 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (4. Agent Architecture) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 750.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (4.1 Two-Workload Component Model) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 722.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 15 Tm /F1 9 Tf 12 TL 1.212953 Tw (The production MVP deploys as two independently authenticated workloads with an authenticated internal handoff of) Tj T* 0 Tw (typed Facts. Local/all-in-one mode remains available for development only.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.02362 639.5354 cm
+q
+.043137 .239216 .360784 rg
+n 0 78 493.2283 -16 re f*
+.933333 .952941 .968627 rg
+n 0 36 493.2283 -36 re f*
+1 1 1 rg
+BT /F2 8 Tf 12 TL ET
+q
+1 0 0 1 4 65 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL (Workload) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.7165 65 cm
+q
+BT 1 0 0 1 0 2 Tm 10 TL /F2 8 Tf 1 1 1 rg (Identity & K8s permissions) Tj T* ET
+Q
+Q
+q
+1 0 0 1 310.1417 65 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL (External capability) Tj T* ET
+Q
+Q
+0 0 0 rg
+BT /F1 8 Tf 12 TL ET
+q
+1 0 0 1 4 49 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Diagnostic agent) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.7165 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (Read-only: Pods, Events, ReplicaSets, Deployments.) Tj T* (ServiceAccount: agentic-ops-diagnostic.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 310.1417 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (Azure AI Foundry inference; authenticated internal) Tj T* (remediation handoff.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 23 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Remediation agent) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.7165 13 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (Read + patch Deployments only. ServiceAccount:) Tj T* (agentic-ops-remediation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 310.1417 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 22 Tm /F1 8 Tf 10 TL (ACR tag validation, Kubernetes rollout verification,) Tj T* (internal remediation API. No Foundry) Tj T* (configuration.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .827451 .870588 RG
+.4 w
+n 0 78 m 493.2283 78 l S
+n 0 0 m 493.2283 0 l S
+n 0 0 m 0 78 l S
+n 493.2283 0 m 493.2283 78 l S
+n 0 62 m 493.2283 62 l S
+n 0 36 m 493.2283 36 l S
+n 107.7165 0 m 107.7165 78 l S
+n 306.1417 0 m 306.1417 78 l S
+Q
+Q
+Q
+q
+1 0 0 1 57.02362 631.0315 cm
+Q
+q
+1 0 0 1 57.02362 619.0315 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (Shared / supporting components:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.02362 384.0315 cm
+q
+.043137 .239216 .360784 rg
+n 0 230 493.2283 -16 re f*
+.933333 .952941 .968627 rg
+n 0 188 493.2283 -26 re f*
+.933333 .952941 .968627 rg
+n 0 136 493.2283 -26 re f*
+.933333 .952941 .968627 rg
+n 0 94 493.2283 -16 re f*
+.933333 .952941 .968627 rg
+n 0 52 493.2283 -26 re f*
+1 1 1 rg
+BT /F2 8 Tf 12 TL ET
+q
+1 0 0 1 4 217 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL (Component) Tj T* ET
+Q
+Q
+q
+1 0 0 1 140.063 217 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL (Role) Tj T* ET
+Q
+Q
+0 0 0 rg
+BT /F1 8 Tf 12 TL ET
+q
+1 0 0 1 4 201 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (PodWatcher) Tj T* ET
+Q
+Q
+q
+1 0 0 1 140.063 191 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (Watches one managed namespace for ImagePullBackOff and ErrImagePull; raises) Tj T* (IncidentTriggers \(runs with Diagnostic\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 175 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (AksDiagnosticProvider) Tj T* ET
+Q
+Q
+q
+1 0 0 1 140.063 165 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (Read-only collection of Pod status, Kubernetes Events, and previous logs; produces Evidence with) Tj T* (source URIs.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 149 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (FoundryDiagnosticProvider) Tj T* ET
+Q
+Q
+q
+1 0 0 1 140.063 139 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (Sends evidence to Azure AI Foundry / Azure OpenAI; receives validated JSON \(groundedness,) Tj T* (summary, optional safe_action\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 123 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (SelfCurePolicy) Tj T* ET
+Q
+Q
+q
+1 0 0 1 140.063 113 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (Deterministic gate \(on Remediation path\): authorizes fix_image only when all policy predicates) Tj T* (hold; otherwise raises PolicyViolation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 97 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (AcrRegistry) Tj T* ET
+Q
+Q
+q
+1 0 0 1 140.063 97 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Verifies image tag existence via ACR OAuth \(AAD ) Tj /F3 8 Tf 10 TL (\256) Tj /F1 8 Tf 10 TL ( refresh ) Tj /F3 8 Tf 10 TL (\256) Tj /F1 8 Tf 10 TL ( repository-scoped pull token\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 81 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (AksActionExecutor) Tj T* ET
+Q
+Q
+q
+1 0 0 1 140.063 81 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Patches only the authorized container image; verifies healthy rollout before resolving the incident.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 65 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (IncidentOrchestrator) Tj T* ET
+Q
+Q
+q
+1 0 0 1 140.063 55 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (Deduplicates by namespace/workload, sequences diagnostics ) Tj /F3 8 Tf 10 TL (\256) Tj /F1 8 Tf 10 TL ( policy ) Tj /F3 8 Tf 10 TL (\256) Tj /F1 8 Tf 10 TL ( action ) Tj /F3 8 Tf 10 TL (\256) Tj /F1 8 Tf 10 TL ( verify, emits) Tj T* (audit events.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Remediation API \(internal\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 140.063 29 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (Receives typed Facts from Diagnostic over cluster-internal Service with shared token;) Tj T* (NetworkPolicy restricts ingress to diagnostic pods.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 13 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Webhook API \(optional\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 140.063 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (POST /api/v1/incidents with token auth; verifies namespace scope and Pod ownership before) Tj T* (handling.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .827451 .870588 RG
+.4 w
+n 0 230 m 493.2283 230 l S
+n 0 0 m 493.2283 0 l S
+n 0 0 m 0 230 l S
+n 493.2283 0 m 493.2283 230 l S
+n 0 214 m 493.2283 214 l S
+n 0 188 m 493.2283 188 l S
+n 0 162 m 493.2283 162 l S
+n 0 136 m 493.2283 136 l S
+n 0 110 m 493.2283 110 l S
+n 0 94 m 493.2283 94 l S
+n 0 78 m 493.2283 78 l S
+n 0 52 m 493.2283 52 l S
+n 0 26 m 493.2283 26 l S
+n 136.063 0 m 136.063 230 l S
+Q
+Q
+Q
+q
+1 0 0 1 57.02362 375.5276 cm
+Q
+q
+1 0 0 1 57.02362 351.5276 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (4.2 Contracts and Data Model) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 335.5276 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (Core types enforce a clear Facts ) Tj /F3 9 Tf 12 TL (\256) Tj /F1 9 Tf 12 TL ( Recommendation ) Tj /F3 9 Tf 12 TL (\256) Tj /F1 9 Tf 12 TL ( Approval flow:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 319.5276 cm
+q
+BT 1 0 0 1 8 2 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (IncidentTrigger) Tj /F1 9 Tf ( \227 namespace, pod, workload, reason, correlation_id; deduplication key is namespace/workload.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 306.5276 cm
+q
+BT 1 0 0 1 8 2 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Evidence) Tj /F1 9 Tf ( \227 name, value, source \(for example k8s://pod/ns/pod-name\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 293.5276 cm
+q
+BT 1 0 0 1 8 2 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Facts) Tj /F1 9 Tf ( \227 evidence items, groundedness score [0,1], optional safe_action, summary, pull_failures.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 269.5276 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (ActionRequest) Tj /F1 9 Tf ( \227 name and parameters; for fix_image the policy binds namespace, deployment, container,) Tj T* (old_image, new_image.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 256.5276 cm
+q
+BT 1 0 0 1 8 2 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Incident) Tj /F1 9 Tf ( \227 status \(open | resolved | escalated\), facts, optional recommendation, reason, executed action.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 232.5276 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (4.3 Self-Cure Authorization Rules) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 216.5276 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (fix_image is allowed only when all of the following hold:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 200.5276 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Exactly one container has an image-pull failure.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 187.5276 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 The model supplies exactly one parameter: image.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 174.5276 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 The registry is allowlisted and unchanged between current and proposed image.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 161.5276 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Repository and tag differ by at most two edits \(optimal string alignment; transposition counts as one\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 148.5276 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 The current image is missing from ACR.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 135.5276 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 The proposed image exists in ACR.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 122.5276 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 The Deployment still carries the image observed during diagnosis \(no concurrent change\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 84.52756 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 27 Tm /F1 9 Tf 12 TL 1.430239 Tw (The model cannot choose namespace, workload, deployment, or container. Any policy, model, ACR, Kubernetes, or) Tj T* 0 Tw 1.501772 Tw (rollout error results in escalation. Authorization and execution run only on the Remediation agent, which never calls) Tj T* 0 Tw (Foundry.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 60.52756 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (4.4 Identity and RBAC) Tj T* ET
+Q
+Q
+ 
+
+endstream
+endobj
+14 0 obj
+<<
+/Contents 15 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font 6 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+15 0 obj
+<<
+/Length 7057
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+0 .470588 .831373 RG
+1.2 w
+n 51.02362 807.874 m 544.252 807.874 l S
+BT /F1 7.5 Tf 9 TL ET
+.352941 .415686 .478431 rg
+BT 1 0 0 1 51.02362 813.5433 Tm (Azure Kubernetes Agentic Ops \227 Project Solution Document) Tj T* ET
+n 51.02362 34.01575 m 544.252 34.01575 l S
+BT 1 0 0 1 51.02362 22.67717 Tm (MVP v0.3.0) Tj T* ET
+BT 1 0 0 1 520.4845 22.67717 Tm (Page 4) Tj T* ET
+Q
+q
+1 0 0 1 57.02362 768.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 Two user-assigned managed identities with separate federated credentials \(OIDC subjects for agentic-ops-diagnostic) Tj T* (and agentic-ops-remediation\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 744.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 Diagnostic identity: Cognitive Services OpenAI User on the Foundry resource; read-only Role in the managed) Tj T* (namespace.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 720.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 Remediation identity: AcrPull on the registry; get/list/watch pods \(as needed\), get/patch Deployments in the managed) Tj T* (namespace.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 696.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 Neither identity receives the other\222s Azure roles. Image-only restriction is enforced in application policy, not solely in) Tj T* (Kubernetes RBAC.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 672.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 Internal remediation token Secret required before apply; NetworkPolicy allows remediation API ingress only from) Tj T* (diagnostic pod labels.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 642.5354 cm
+q
+.043137 .239216 .360784 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (5. Workflow) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 618.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (5.1 End-to-End Incident Flow \(MVP\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 592.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 PodWatcher \(Diagnostic\) observes ADDED/MODIFIED pod events in the managed namespace and detects) Tj T* (ImagePullBackOff or ErrImagePull.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 579.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Ownership is resolved \(Pod ) Tj /F3 9 Tf 11 TL (\256) Tj /F1 9 Tf 11 TL ( ReplicaSet ) Tj /F3 9 Tf 11 TL (\256) Tj /F1 9 Tf 11 TL ( Deployment\). Pods not owned by a Deployment are skipped.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 566.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 IncidentOrchestrator opens or deduplicates an incident \(key: namespace/workload; cooldown applies\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 553.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 AksDiagnosticProvider collects pod phase, container states, events, and pull-failure evidence with source URIs.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 529.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 FoundryDiagnosticProvider sends evidence to the model \(temperature 0, JSON response format\) and parses) Tj T* (groundedness, summary, and optional safe_action.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 516.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 If groundedness is below threshold \(default 0.85\) or no safe action is proposed, the incident is escalated.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 503.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Diagnostic posts typed Facts to the cluster-internal Remediation Service \(token-authenticated\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 490.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 SelfCurePolicy \(Remediation\) authorizes the action or raises PolicyViolation / OutOfScope.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 466.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 AksActionExecutor patches the container image and polls until the Deployment is fully rolled out and available, or) Tj T* (times out.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 442.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 Incident is marked RESOLVED only after a healthy rollout confirmed by Remediation; otherwise ESCALATED with) Tj T* (reason and evidence.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 429.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 A structured audit log entry is emitted for every decision.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 405.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (5.2 Escalation Criteria) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 389.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 3 Tm /F1 9 Tf 12 TL (Escalation occurs when any of the following is true:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 373.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Groundedness is below the configured quality threshold.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 360.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 No safe action is proposed by the model.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 347.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Policy predicates fail \(wrong registry, excessive edit distance, image still present in ACR, multiple pull failures, etc.\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 334.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Action executes but the workload does not become healthy within the verification timeout.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 321.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Any exception during diagnostics, registry access, or Kubernetes API interaction.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 308.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Remediation handoff fails authentication or NetworkPolicy blocks the request.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 284.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (5.3 Optional Webhook Path) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 232.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 39 Tm /F1 9 Tf 12 TL 2.729816 Tw (When AGENTIC_OPS_WEBHOOK_TOKEN is configured, POST /api/v1/incidents accepts external triggers. Every) Tj T* 0 Tw .96769 Tw (request must present X-Webhook-Token. The service verifies that the namespace is managed and that the submitted) Tj T* 0 Tw .50449 Tw (workload matches the Deployment that owns the Pod. The Service is cluster-internal; NetworkPolicy restricts ingress to) Tj T* 0 Tw (namespaces labelled agentic-ops/webhook-sender=true \(and retains the diagnostic) Tj /F3 9 Tf 12 TL (\256) Tj /F1 9 Tf 12 TL (remediation path\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 208.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (5.4 Target Vision Workflow \(Beyond MVP\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 156.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 39 Tm /F1 9 Tf 12 TL .188897 Tw (The project concept extends the same pattern to broader triggers \(for example CrashLoopBackOff\) and a larger whitelist) Tj T* 0 Tw 1.67149 Tw (of reversible actions \(rollout restart, scale, single-pod eviction\), with automatic rollback if recovery fails. Outside the) Tj T* 0 Tw .793362 Tw (whitelist, Agent Support produces recommendations and Human Support owns execution. The two-workload boundary) Tj T* 0 Tw (remains the safety foundation as capabilities expand.) Tj T* ET
+Q
+Q
+ 
+
+endstream
+endobj
+16 0 obj
+<<
+/Contents 17 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font 6 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+17 0 obj
+<<
+/Length 8996
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+0 .470588 .831373 RG
+1.2 w
+n 51.02362 807.874 m 544.252 807.874 l S
+BT /F1 7.5 Tf 9 TL ET
+.352941 .415686 .478431 rg
+BT 1 0 0 1 51.02362 813.5433 Tm (Azure Kubernetes Agentic Ops \227 Project Solution Document) Tj T* ET
+n 51.02362 34.01575 m 544.252 34.01575 l S
+BT 1 0 0 1 51.02362 22.67717 Tm (MVP v0.3.0) Tj T* ET
+BT 1 0 0 1 520.4845 22.67717 Tm (Page 5) Tj T* ET
+Q
+q
+1 0 0 1 57.02362 774.5354 cm
+q
+.043137 .239216 .360784 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (6. Observability Strategy) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 750.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (6.1 Design Intent) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 710.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 27 Tm /F1 9 Tf 12 TL .03709 Tw (Observability is a first-class concern: every incident path must be reconstructible, measurable, and cost-aware. The MVP) Tj T* 0 Tw -0.092353 Tw (emits structured audit events; the target architecture adds full tracing, metrics, and cost governance. Correlation IDs span) Tj T* 0 Tw (Diagnostic and Remediation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 686.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (6.2 Traces) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 671.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Complete incident path: trigger ) Tj /F3 9 Tf 11 TL (\256) Tj /F1 9 Tf 11 TL ( tool calls ) Tj /F3 9 Tf 11 TL (\256) Tj /F1 9 Tf 11 TL ( model inference ) Tj /F3 9 Tf 11 TL (\256) Tj /F1 9 Tf 11 TL ( handoff ) Tj /F3 9 Tf 11 TL (\256) Tj /F1 9 Tf 11 TL ( policy decision ) Tj /F3 9 Tf 11 TL (\256) Tj /F1 9 Tf 11 TL ( action ) Tj /F3 9 Tf 11 TL (\256) Tj /F1 9 Tf 11 TL ( verification.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 658.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Correlation ID propagated from watcher or webhook through audit logs on both workloads.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 645.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Duration of every step and kubectl / API call; tool status and token/cost per model call \(Diagnostic only\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 621.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (6.3 Metrics) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 606.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Support-layer latency \(p50 / p95 / p99\), including handoff latency.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 593.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Tool success and error rates.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 580.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Groundedness score distribution \(facts ) Tj /F3 9 Tf 11 TL (\253) Tj /F1 9 Tf 11 TL ( sources\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 567.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Time-to-RCA and time-to-resolution for self-cured vs. escalated incidents.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 554.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Operator feedback \(when available\) for recommendation quality.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 530.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (6.4 Cost Governance) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 515.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Token budget per ticket with alerts for runaway queries \(Diagnostic path only\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 502.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Caching and rate-limiting of expensive tool calls before they reach the cluster or the model.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 489.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Low temperature and structured JSON outputs to improve consistency and reduce retries.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 465.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (6.5 Audit Log \(MVP\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 425.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 27 Tm /F1 9 Tf 12 TL .33469 Tw (Each decision writes a JSON audit record including: event type, correlation_id, deduplication key, trigger reason, status,) Tj T* 0 Tw 1.773668 Tw (reason, groundedness, summary, action name and parameters, action_executed flag, evidence_sources, and which) Tj T* 0 Tw (workload performed the step.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 395.5354 cm
+q
+.043137 .239216 .360784 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (7. Evaluation Approach) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 371.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (7.1 Test Datasets) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 356.5354 cm
+q
+BT 1 0 0 1 8 2 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Golden) Tj /F1 9 Tf ( \227 realistic operational incidents \(image typo, known-good and known-bad outcomes\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 332.5354 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Synthetic) Tj /F1 9 Tf ( \227 failure variants \(hallucinated tags, existing-but-unpullable images, multi-container pods, out-of-scope) Tj T* (namespaces\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 319.5354 cm
+q
+BT 1 0 0 1 8 2 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Live) Tj /F1 9 Tf ( \227 anonymized production-like signals \(target state\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 306.5354 cm
+q
+BT 1 0 0 1 8 2 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Adversarial) Tj /F1 9 Tf ( \227 attempts to trigger unsafe actions or inject instructions via evidence strings; handoff token misuse.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 282.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (7.2 Evaluation Criteria) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.02362 124.5354 cm
+q
+.043137 .239216 .360784 rg
+n 0 154 493.2283 -16 re f*
+.933333 .952941 .968627 rg
+n 0 122 493.2283 -16 re f*
+.933333 .952941 .968627 rg
+n 0 90 493.2283 -26 re f*
+.933333 .952941 .968627 rg
+n 0 48 493.2283 -16 re f*
+.933333 .952941 .968627 rg
+n 0 16 493.2283 -16 re f*
+1 1 1 rg
+BT /F2 8 Tf 12 TL ET
+q
+1 0 0 1 4 141 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL (Criterion) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.7165 141 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL (Description) Tj T* ET
+Q
+Q
+0 0 0 rg
+BT /F1 8 Tf 12 TL ET
+q
+1 0 0 1 4 125 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Diagnostic accuracy) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.7165 125 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Correct identification of root cause from evidence.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 109 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Groundedness) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.7165 109 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Conclusions follow from tool-backed facts; quality gate ) Tj /F3 8 Tf 10 TL (\263) Tj /F1 8 Tf 10 TL ( 0.85.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 93 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Role adherence) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.7165 93 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Model proposes only allowed actions and parameters; Remediation never invents scope.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 77 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Safety) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.7165 67 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12 Tm /F1 8 Tf 10 TL (No unauthorized write; policy blocks all out-of-contract proposals \(target: 100%\); separation of identities) Tj T* (holds.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 51 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (RCA quality) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.7165 51 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Summary and evidence sources are useful for human operators.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 35 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Tool usage) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.7165 35 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Appropriate, minimal tool calls; no fabricated cluster state.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 19 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Consistency) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.7165 19 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Stable outcomes under low temperature and prompt versioning.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 4 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Time-to-insight) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.7165 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 8 Tf 10 TL (Latency from trigger to resolution or escalation \(including handoff\).) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.784314 .827451 .870588 RG
+.4 w
+n 0 154 m 493.2283 154 l S
+n 0 0 m 493.2283 0 l S
+n 0 0 m 0 154 l S
+n 493.2283 0 m 493.2283 154 l S
+n 0 138 m 493.2283 138 l S
+n 0 122 m 493.2283 122 l S
+n 0 106 m 493.2283 106 l S
+n 0 90 m 493.2283 90 l S
+n 0 64 m 493.2283 64 l S
+n 0 48 m 493.2283 48 l S
+n 0 32 m 493.2283 32 l S
+n 0 16 m 493.2283 16 l S
+n 107.7165 0 m 107.7165 154 l S
+Q
+Q
+Q
+q
+1 0 0 1 57.02362 116.0315 cm
+Q
+q
+1 0 0 1 57.02362 92.0315 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (7.3 Integration and Quality Gates) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 77.0315 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Automated evaluation in CI/CD with a 60-second per-test timeout.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 64.0315 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Quality gates: groundedness ) Tj /F3 9 Tf 11 TL (\263) Tj /F1 9 Tf 11 TL ( 0.85; safety = 100% on adversarial and policy suites.) Tj T* ET
+Q
+Q
+ 
+
+endstream
+endobj
+18 0 obj
+<<
+/Contents 19 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font 6 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+19 0 obj
+<<
+/Length 2489
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+0 .470588 .831373 RG
+1.2 w
+n 51.02362 807.874 m 544.252 807.874 l S
+BT /F1 7.5 Tf 9 TL ET
+.352941 .415686 .478431 rg
+BT 1 0 0 1 51.02362 813.5433 Tm (Azure Kubernetes Agentic Ops \227 Project Solution Document) Tj T* ET
+n 51.02362 34.01575 m 544.252 34.01575 l S
+BT 1 0 0 1 51.02362 22.67717 Tm (MVP v0.3.0) Tj T* ET
+BT 1 0 0 1 520.4845 22.67717 Tm (Page 6) Tj T* ET
+Q
+q
+1 0 0 1 57.02362 768.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 Unit and end-to-end tests cover policy authorization, orchestrator paths, ACR client behavior, Foundry response) Tj T* (parsing, watcher, webhook authentication, and remediation handoff.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 755.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Weekly review of worst incidents and A/B tests of new agent or prompt versions \(target process\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 731.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (7.4 Governance and Safety Controls) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 716.5354 cm
+q
+BT 1 0 0 1 8 2 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Consistency) Tj /F1 9 Tf ( \227 low temperature, cached diagnostic results, prompt versioning, structured JSON between layers.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 692.5354 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Safety) Tj /F1 9 Tf ( \227 guardrails block write/exec outside the whitelist; read-oriented RBAC on Diagnostic; write limited to) Tj T* (Remediation; human-in-the-loop for non-whitelisted changes; complete audit log.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 668.5354 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Maintainability) Tj /F1 9 Tf ( \227 modular layers and tools, feature flags, regression tests, documented Facts ) Tj /F3 9 Tf 11 TL (\256) Tj /F1 9 Tf 11 TL ( Recommendation) Tj T* /F3 9 Tf 11 TL (\256) Tj /F1 9 Tf 11 TL ( Approval contracts.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 644.5354 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Grounding) Tj /F1 9 Tf ( \227 Agent Support never invents cluster state; tools are the source of truth; recommendations rely only on) Tj T* (facts and the knowledge base.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 620.5354 cm
+q
+BT 1 0 0 1 8 13 Tm 11 TL /F1 9 Tf 0 0 0 rg (\177 ) Tj /F2 9 Tf (Separation of duties) Tj /F1 9 Tf ( \227 Diagnostic cannot execute; Remediation cannot call Foundry or expand scope from model) Tj T* (output alone.) Tj T* ET
+Q
+Q
+ 
+
+endstream
+endobj
+20 0 obj
+<<
+/Contents 21 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font 6 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+21 0 obj
+<<
+/Length 7356
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+0 .470588 .831373 RG
+1.2 w
+n 51.02362 807.874 m 544.252 807.874 l S
+BT /F1 7.5 Tf 9 TL ET
+.352941 .415686 .478431 rg
+BT 1 0 0 1 51.02362 813.5433 Tm (Azure Kubernetes Agentic Ops \227 Project Solution Document) Tj T* ET
+n 51.02362 34.01575 m 544.252 34.01575 l S
+BT 1 0 0 1 51.02362 22.67717 Tm (MVP v0.3.0) Tj T* ET
+BT 1 0 0 1 520.4845 22.67717 Tm (Page 7) Tj T* ET
+Q
+q
+1 0 0 1 57.02362 774.5354 cm
+q
+.043137 .239216 .360784 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (8. Deployment Model) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 750.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (8.1 Runtime Placement) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 698.5354 cm
+q
+BT 1 0 0 1 0 39 Tm .107882 Tw 12 TL /F1 9 Tf 0 0 0 rg (Both agents run as single-replica Deployments in the ) Tj /F2 9 Tf (agentic-ops) Tj /F1 9 Tf ( namespace and manage one application namespace.) Tj T* 0 Tw 2.095772 Tw (Recreate strategy avoids dual-pod races during updates. Incident state is in-memory by design for the MVP. The) Tj T* 0 Tw .205935 Tw (authoritative production path is the two-workload design documented in ) Tj /F2 9 Tf (docs/two-workload-deployment.md) Tj /F1 9 Tf (; all-in-one) Tj T* 0 Tw (remains for local compatibility only.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 674.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (8.2 Prerequisites) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 659.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 AKS with OIDC issuer and Workload Identity enabled.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 646.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Azure Container Registry reachable from the cluster.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 633.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Azure AI Foundry or Azure OpenAI-compatible endpoint with a deployed model.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 620.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Azure CLI and kubectl for bootstrap.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 607.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Two user-assigned identities and federated credentials for diagnostic and remediation ServiceAccounts.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 594.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Remediation token Secret \(agentic-ops-remediation\) created before applying manifests.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 570.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (8.3 Build and Ship) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 518.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 39 Tm /F1 9 Tf 12 TL .344709 Tw (The container image is built with Python 3.12-slim, non-root user, and pinned dependencies via constraints.txt. Image is) Tj T* 0 Tw 3.76789 Tw (built into ACR \(az acr build, tag e.g. agentic-ops:0.2.0\) and deployed via rendered manifests that substitute) Tj T* 0 Tw 1.68285 Tw (diagnostic/remediation client IDs, Foundry endpoint, deployment name, image reference, managed namespace, and) Tj T* 0 Tw (ACR login server. Role is selected at runtime so the same image serves both workloads.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 494.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (8.4 Egress Boundary) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 430.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 51 Tm /F1 9 Tf 12 TL .03409 Tw (Code and identities prevent the Remediation agent from using Foundry. Standard NetworkPolicy cannot safely express a) Tj T* 0 Tw 1.23649 Tw (full Azure-service allowlist without cluster egress design knowledge; the portable manifest therefore does not claim a) Tj T* 0 Tw .33529 Tw (public-egress block. Before production, enforce the final boundary at the network layer \(Azure Firewall, egress gateway,) Tj T* 0 Tw .785147 Tw (or CNI with FQDN support\): Remediation may reach AKS API, ACR, DNS, and required identity endpoints; Diagnostic) Tj T* 0 Tw (may also reach approved Foundry endpoints.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 400.5354 cm
+q
+.043137 .239216 .360784 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (9. MVP Limitations and Roadmap) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 376.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (9.1 Current Limitations) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 361.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Only image-typo remediation is automatic.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 348.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 One namespace, one ACR, Deployments, and one failing container per Pod.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 335.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 In-memory state; single replica per workload.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 311.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 Tests use fake Kubernetes, ACR, and Foundry endpoints\227identity, NetworkPolicy, and live rollout behavior must be) Tj T* (validated in a non-production AKS environment.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 287.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 Model groundedness is self-reported; registry and policy checks on the Remediation path provide the effective) Tj T* (safeguards.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 263.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 13 Tm /F1 9 Tf 11 TL (\177 RBAC permits Deployment patching in the managed namespace for Remediation only; the image-only limit is) Tj T* (enforced in code.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 239.5354 cm
+q
+0 .470588 .831373 rg
+BT 1 0 0 1 0 3 Tm /F2 11 Tf 14 TL (9.2 Intended Evolution) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 224.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Expand the self-cure whitelist with reversible actions \(restart, scale, eviction\) and automatic rollback.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 211.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Additional triggers \(CrashLoopBackOff and alert-driven paths\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 198.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Persistent incident store and multi-replica coordination.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 185.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Full OpenTelemetry traces and metrics export across both workloads.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 172.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Continuous evaluation pipelines with golden/synthetic/adversarial suites in CI.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 159.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Human approval workflows for non-whitelisted recommendations.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 146.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 8 2 Tm /F1 9 Tf 11 TL (\177 Stronger network-level egress controls for Remediation as a documented production requirement.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 116.5354 cm
+q
+.043137 .239216 .360784 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (10. Conclusion) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 62.53543 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 39 Tm /F1 9 Tf 12 TL 2.572596 Tw (Azure Kubernetes Agentic Ops demonstrates a practical, safety-first approach to agentic operations on AKS. By) Tj T* 0 Tw 3.036096 Tw (constraining autonomy to a rigorously checked remediation path, treating model output as untrusted input, and) Tj T* 0 Tw 2.20369 Tw (separating diagnostic inference from write capability across two Workload Identities, the system reduces toil on a) Tj T* 0 Tw (common failure mode while preserving auditability and human control.) Tj T* ET
+Q
+Q
+ 
+
+endstream
+endobj
+22 0 obj
+<<
+/Annots [ 23 0 R ]
+/Contents 24 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font 6 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+23 0 obj
+<<
+/A <<
+/S /URI
+/Type /Action
+/URI (https\072\057\057github\056com\057JeanneBM\057azure\055kubernetes\055agentic\055ops\055mvp)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 105.0386 721.7276 348.9401 732.5276 ]
+/Subtype /Link
+/Type /Annot
+>>
+endobj
+24 0 obj
+<<
+/Length 1259
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+0 .470588 .831373 RG
+1.2 w
+n 51.02362 807.874 m 544.252 807.874 l S
+BT /F1 7.5 Tf 9 TL ET
+.352941 .415686 .478431 rg
+BT 1 0 0 1 51.02362 813.5433 Tm (Azure Kubernetes Agentic Ops \227 Project Solution Document) Tj T* ET
+n 51.02362 34.01575 m 544.252 34.01575 l S
+BT 1 0 0 1 51.02362 22.67717 Tm (MVP v0.3.0) Tj T* ET
+BT 1 0 0 1 520.4845 22.67717 Tm (Page 8) Tj T* ET
+Q
+q
+1 0 0 1 57.02362 754.5354 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 27 Tm /F1 9 Tf 12 TL .781816 Tw (The architecture\227event-driven triggers, source-backed diagnostics, authenticated handoff, deterministic policy, verified) Tj T* 0 Tw .188897 Tw (execution, and structured evaluation\227provides a foundation that can grow from a narrow MVP into a broader multi-layer) Tj T* 0 Tw (operating model without sacrificing the principle that tools, not models, are the source of truth for cluster state.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 732.5276 cm
+Q
+q
+1 0 0 1 57.02362 708.5276 cm
+q
+BT 1 0 0 1 0 15 Tm 12.31347 Tw 12 TL /F1 9 Tf 0 0 0 rg (Repository: ) Tj (github.com/JeanneBM/azure-kubernetes-agentic-ops-mvp) Tj ( \267 Authoritative two-workload guide:) Tj T* 0 Tw (docs/two-workload-deployment.md \267 Rationale: docs/two-agent-orchestration.md) Tj T* ET
+Q
+Q
+ 
+
+endstream
+endobj
+xref
+0 25
+0000000000 65535 f 
+0000000015 00000 n 
+0000000054 00000 n 
+0000000162 00000 n 
+0000000211 00000 n 
+0000000410 00000 n 
+0000007723 00000 n 
+0000007774 00000 n 
+0000007881 00000 n 
+0000007993 00000 n 
+0000008070 00000 n 
+0000008271 00000 n 
+0000012536 00000 n 
+0000012737 00000 n 
+0000022955 00000 n 
+0000023156 00000 n 
+0000030266 00000 n 
+0000030467 00000 n 
+0000039516 00000 n 
+0000039717 00000 n 
+0000042259 00000 n 
+0000042460 00000 n 
+0000049869 00000 n 
+0000050089 00000 n 
+0000050332 00000 n 
+trailer
+<<
+/Size 25
+/Root 3 0 R
+/Info 1 0 R
+>>
+startxref
+51644
+%%EOF

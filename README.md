@@ -2,9 +2,9 @@
 
 [![Tests](https://github.com/JeanneBM/azure-kubernetes-agentic-ops-mvp/actions/workflows/test.yml/badge.svg)](https://github.com/JeanneBM/azure-kubernetes-agentic-ops-mvp/actions/workflows/test.yml)
 
-An AI-assisted Kubernetes incident remediation application hosted on **Azure Kubernetes Service (AKS)**. It separates read-only, LLM-assisted diagnosis from deterministic remediation into two independently authenticated workloads.
+**Code-defined agent orchestration on Azure Kubernetes Service (AKS), with LLM-assisted diagnosis and deterministic remediation.** The MVP coordinates a diagnostic agent and a remediation agent, deployed as two independently authenticated workloads with separate responsibilities and permissions.
 
-**Azure AI Foundry / Azure OpenAI supplies model inference.** The application runs its watcher, orchestration, safety policy, and Kubernetes actions on AKS; it does not use Foundry Agent Service to host or orchestrate agents.
+**The agents and their orchestration are implemented in Python and run on AKS.** Azure AI Foundry / Azure OpenAI supplies model inference to the diagnostic agent. The watcher, agent handoff, incident lifecycle, safety policy, and Kubernetes execution are controlled by application code.
 
 The MVP demonstrates one narrowly scoped recovery scenario: correcting an image-reference typo in a Kubernetes Deployment whose images are stored in Azure Container Registry (ACR), such as `paymnets-api:1.4.2` instead of `payments-api:1.4.2`. Cases outside this policy are escalated with evidence and a reason for human review.
 
@@ -14,14 +14,20 @@ The MVP demonstrates one narrowly scoped recovery scenario: correcting an image-
 
 | Component running on AKS | Responsibility | Kubernetes permissions | Azure capability |
 | --- | --- | --- | --- |
-| Diagnostic workload | Observe failures, collect evidence, request a model proposal, and send a typed request to remediation. | Read Pods, Events, ReplicaSets, and Deployments in the managed namespace. | Foundry / Azure OpenAI inference. |
-| Remediation workload | Independently authorize the proposed change, validate the image in ACR, execute the change, and verify rollout health. | Read and patch Deployments in the managed namespace. | ACR tag validation. |
+| Diagnostic agent | Observe failures, collect evidence, request a model proposal, and send a typed request to remediation. | Read Pods, Events, ReplicaSets, and Deployments in the managed namespace. | Foundry / Azure OpenAI inference. |
+| Remediation agent | Independently authorize the proposed change, validate the image in ACR, execute the change, and verify rollout health. | Read and patch Deployments in the managed namespace. | ACR tag validation. |
 
-The diagnostic component uses an LLM. The remediation component is a deterministic policy and execution service: it has no LLM or web-search capability. Each workload has its own Kubernetes ServiceAccount and Azure Workload Identity.
+The diagnostic agent uses an LLM to analyse evidence and propose a correction. The remediation agent is implemented as a deterministic policy and execution service: it authorizes the proposal, executes the permitted action, and verifies the outcome without an LLM or web-search capability. Each agent workload has its own Kubernetes ServiceAccount and Azure Workload Identity.
 
 The internal handoff is authenticated with a shared token and restricted by ingress NetworkPolicy. The remediation workload still requires network access to Kubernetes, ACR, DNS, and Azure identity services. The portable manifest does not enforce a complete external egress allowlist; see [deployment boundaries](docs/two-workload-deployment.md).
 
-The key design is **AI proposes; deterministic policy authorizes; the executor acts and verifies**. The image typo is the demonstration scenario for this boundary.
+### How orchestration works
+
+`IncidentOrchestrator` coordinates the diagnostic-to-remediation flow, incident state, deduplication, and final outcome. The agents exchange a typed facts contract through an authenticated internal API. The orchestrator marks an incident resolved only when remediation confirms a healthy rollout; otherwise, it records escalation for human review.
+
+This is a bounded, code-defined agent workflow with fixed roles and a narrow action policy. It does not implement open-ended planning, dynamic agent selection, or a general-purpose multi-agent framework.
+
+The key design is **the diagnostic agent proposes; the remediation agent authorizes, acts, and verifies**. The image typo is the demonstration scenario for this responsibility boundary.
 
 ## Incident flow
 

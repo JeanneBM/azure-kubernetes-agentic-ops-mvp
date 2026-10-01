@@ -9,7 +9,7 @@ from .web import build_app as build_legacy_app, create_app
 
 
 def build_app():
-    """Build one of the explicitly separated MVP workloads.
+    """Build one of the explicitly separated PoC workloads.
 
     AGENTIC_OPS_ROLE=diagnostic owns watcher, AKS reads, Foundry diagnosis, and
     the authenticated internal handoff. AGENTIC_OPS_ROLE=remediation owns the

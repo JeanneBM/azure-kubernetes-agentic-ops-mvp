@@ -16,7 +16,7 @@ log = logging.getLogger("agentic_ops.watcher")
 class PodWatcher:
     """Turns image-pull failures in one namespace into incident triggers.
 
-    This is the event source that makes the MVP automatic: no external alerting
+    This is the event source that makes the PoC automatic: no external alerting
     is required. The webhook remains available for manual or external triggers.
     """
 

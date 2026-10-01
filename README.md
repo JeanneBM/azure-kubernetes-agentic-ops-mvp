@@ -10,6 +10,14 @@ The MVP demonstrates one narrowly scoped recovery scenario: correcting an image-
 
 [Watch the demo recording](./agentic_ops_demo_en_v6_final.mp4) · [Project solution PDF](./Azure_Kubernetes_Agentic_Ops_Project_Solution_public.pdf)
 
+## MVP objective: demonstrate agent response speed
+
+The goal of this MVP is to demonstrate how an agent can shorten the time between detecting a Kubernetes failure and completing a verified remediation. The watcher initiates the diagnostic and remediation workflow without waiting for a human to notice the incident, collect evidence, and perform the permitted correction manually.
+
+The deliberately narrow image-typo scenario makes this response time measurable while keeping the action scope controlled. Measure the interval from the first observed image-pull failure to a verified healthy rollout, with separate timings for detection, diagnosis, policy validation, execution, and rollout verification.
+
+A comparison with a manual response should use the same failure scenario, available evidence, and completion criterion. Faster response is an objective to validate through measurements, not a benchmark result established by this README. The current MVP does not establish that an LLM-based agent is faster than a dedicated deterministic repair script.
+
 ## Architecture and responsibility boundaries
 
 | Component running on AKS | Responsibility | Kubernetes permissions | Azure capability |

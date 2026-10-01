@@ -1,22 +1,22 @@
-# Azure Kubernetes Agentic Ops MVP
+# Azure Kubernetes Agentic Ops PoC
 
-[![Tests](https://github.com/JeanneBM/azure-kubernetes-agentic-ops-mvp/actions/workflows/test.yml/badge.svg)](https://github.com/JeanneBM/azure-kubernetes-agentic-ops-mvp/actions/workflows/test.yml)
+[![Tests](https://github.com/JeanneBM/azure-kubernetes-agentic-ops-poc/actions/workflows/test.yml/badge.svg)](https://github.com/JeanneBM/azure-kubernetes-agentic-ops-poc/actions/workflows/test.yml)
 
-**Code-defined agent orchestration on Azure Kubernetes Service (AKS), with LLM-assisted diagnosis and deterministic remediation.** The MVP coordinates a diagnostic agent and a remediation agent, deployed as two independently authenticated workloads with separate responsibilities and permissions.
+**Code-defined agent orchestration on Azure Kubernetes Service (AKS), with LLM-assisted diagnosis and deterministic remediation.** The PoC coordinates a diagnostic agent and a remediation agent, deployed as two independently authenticated workloads with separate responsibilities and permissions.
 
 **The agents and their orchestration are implemented in Python and run on AKS.** Azure AI Foundry / Azure OpenAI supplies model inference to the diagnostic agent. The watcher, agent handoff, incident lifecycle, safety policy, and Kubernetes execution are controlled by application code.
 
-The MVP demonstrates one narrowly scoped recovery scenario: correcting an image-reference typo in a Kubernetes Deployment whose images are stored in Azure Container Registry (ACR), such as `paymnets-api:1.4.2` instead of `payments-api:1.4.2`. Cases outside this policy are escalated with evidence and a reason for human review.
+The PoC demonstrates one narrowly scoped recovery scenario: correcting an image-reference typo in a Kubernetes Deployment whose images are stored in Azure Container Registry (ACR), such as `paymnets-api:1.4.2` instead of `payments-api:1.4.2`. Cases outside this policy are escalated with evidence and a reason for human review.
 
 [Watch the demo recording](./agentic_ops_demo_en_v6_final.mp4) · [Project solution PDF](./Azure_Kubernetes_Agentic_Ops_Project_Solution_public.pdf)
 
-## MVP objective: demonstrate agent response speed
+## Proof of concept objective: demonstrate agent response speed
 
-The goal of this MVP is to demonstrate how an agent can shorten the time between detecting a Kubernetes failure and completing a verified remediation. The watcher initiates the diagnostic and remediation workflow without waiting for a human to notice the incident, collect evidence, and perform the permitted correction manually.
+The goal of this proof of concept (PoC) is to demonstrate how an agent can shorten the time between detecting a Kubernetes failure and completing a verified remediation. The watcher initiates the diagnostic and remediation workflow without waiting for a human to notice the incident, collect evidence, and perform the permitted correction manually.
 
 The deliberately narrow image-typo scenario makes this response time measurable while keeping the action scope controlled. Measure the interval from the first observed image-pull failure to a verified healthy rollout, with separate timings for detection, diagnosis, policy validation, execution, and rollout verification.
 
-A comparison with a manual response should use the same failure scenario, available evidence, and completion criterion. Faster response is an objective to validate through measurements, not a benchmark result established by this README. The current MVP does not establish that an LLM-based agent is faster than a dedicated deterministic repair script.
+A comparison with a manual response should use the same failure scenario, available evidence, and completion criterion. Faster response is an objective to validate through measurements, not a benchmark result established by this README. The current PoC does not establish that an LLM-based agent is faster than a dedicated deterministic repair script.
 
 ## Architecture and responsibility boundaries
 
@@ -41,7 +41,7 @@ The key design is **the diagnostic agent proposes; the remediation agent authori
 
 1. `PodWatcher` observes `ImagePullBackOff` and `ErrImagePull` in one managed namespace.
 2. `AksDiagnosticProvider` collects the Pod state, Kubernetes Events, ownership information, and failing image reference.
-3. `FoundryDiagnosticProvider` sends this evidence to the model and parses its structured JSON response. The current MVP uses Kubernetes evidence; it does not implement internet search.
+3. `FoundryDiagnosticProvider` sends this evidence to the model and parses its structured JSON response. The current PoC uses Kubernetes evidence; it does not implement internet search.
 4. The diagnostic workload sends typed facts and the proposal to the remediation workload over the authenticated internal API.
 5. `SelfCurePolicy` treats the proposal as untrusted input and checks it against the fixed remediation scope and ACR.
 6. `AksActionExecutor` patches the affected container image and verifies rollout health.
@@ -239,7 +239,7 @@ Every request must include `X-Webhook-Token`. The diagnostic NetworkPolicy permi
 | 502 | Kubernetes API failed while ownership was checked. |
 | 503 | Webhook is disabled because no token is configured. |
 
-## MVP limitations
+## PoC limitations
 
 - Only image-reference typo remediation is automatic.
 - The supplied deployment manages one namespace and one ACR; supported targets are Deployments with exactly one failing container per incident.

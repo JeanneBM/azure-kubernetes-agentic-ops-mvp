@@ -1,6 +1,6 @@
-# Two-Workload MVP Deployment
+# Two-Workload PoC Deployment
 
-The supplied manifest runs the MVP as two independently authenticated workloads.
+The supplied manifest runs the PoC as two independently authenticated workloads.
 
 | Workload | Identity and Kubernetes permissions | External capability |
 | --- | --- | --- |

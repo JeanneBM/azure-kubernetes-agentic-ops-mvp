@@ -78,6 +78,41 @@ GitHub Actions runs the test suite on pushes and pull requests. The suite covers
 
 **Test boundary:** automated tests use fake Kubernetes, ACR, and Foundry endpoints. They do not establish that Azure identity, cluster networking, or remediation works in a live AKS environment. Validate these separately in a non-production cluster.
 
+### Coverage snapshot
+
+Local measurement on Python 3.12 on **2026-10-01**: **70 tests passed**. Coverage was measured across all modules in `src/agentic_ops`, including modules not imported by the tests.
+
+| Metric | Result |
+| --- | --- |
+| Statement (line) coverage | **74.4%** (491 of 660 executable statements) |
+| Branch coverage | **70.5%** (110 of 156 branches) |
+| Combined statement and branch coverage | **73.7%** |
+
+Selected module results below use the combined statement and branch metric:
+
+| Module | Coverage |
+| --- | --- |
+| `agents.py`, `foundry.py` | 100% |
+| `safety.py` | 95% |
+| `orchestrator.py` | 93% |
+| `aks.py` | 80% |
+| `watcher.py` | 53% |
+| `remote.py`, `split_app.py` | 0% |
+
+The main gaps are the HTTP handoff between agents, construction of the separate workloads, and parts of the watcher lifecycle. Tests of the two-agent logic do not currently exercise the remote HTTP transport or workload bootstrap modules.
+
+This is a dated local snapshot, not a live CI coverage result. The existing CI workflow runs pytest without collecting coverage. The local measurement used separately installed dependencies rather than the exact `constraints.txt` environment used by CI.
+
+To repeat the measurement after installing the development dependencies:
+
+~~~sh
+python -m pip install coverage
+python -m coverage run --branch --source=src/agentic_ops -m pytest
+python -m coverage report -m
+~~~
+
+Coverage measures which code the tests execute; it does not establish live AKS integration correctness or test assertion quality.
+
 ## Deployment prerequisites
 
 - AKS with OIDC issuer and Workload Identity enabled.

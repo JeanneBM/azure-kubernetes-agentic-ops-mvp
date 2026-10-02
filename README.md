@@ -74,7 +74,7 @@ python -m pip install -c constraints.txt -e ".[dev]"
 python -m pytest
 ~~~
 
-GitHub Actions runs the test suite on pushes and pull requests. The suite covers policy, orchestration, Kubernetes and ACR adapters, model-response handling, webhook and watcher behaviour, and the two-component handoff.
+GitHub Actions runs the test suite on pushes and pull requests. The suite covers policy, orchestration, Kubernetes and ACR adapters, model-response handling, watcher behaviour, and the two-component handoff.
 
 **Test boundary:** automated tests use fake Kubernetes, ACR, and Foundry endpoints. They do not establish that Azure identity, cluster networking, or remediation works in a live AKS environment. Validate these separately in a non-production cluster.
 
@@ -249,30 +249,6 @@ kubectl logs -n agentic-ops deploy/agentic-ops-diagnostic
 kubectl logs -n agentic-ops deploy/agentic-ops-remediation
 kubectl get deployment payments-api -n $env:MANAGED_NAMESPACE -o jsonpath='{.spec.template.spec.containers[0].image}'
 ~~~
-
-## Webhook
-
-The pod watcher is sufficient for the demo. The manifest exposes the diagnostic API through the cluster-internal `agentic-ops-diagnostic` Service. To enable `POST /api/v1/incidents`, create the optional token Secret and restart only the diagnostic workload:
-
-~~~
-$bytes = New-Object byte[] 32
-[Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($bytes)
-$token = [Convert]::ToBase64String($bytes)
-kubectl create secret generic agentic-ops-webhook -n agentic-ops --from-literal=token=$token
-kubectl rollout restart deployment/agentic-ops-diagnostic -n agentic-ops
-~~~
-
-Every request must include `X-Webhook-Token`. The diagnostic NetworkPolicy permits a webhook sender only from namespaces labelled `agentic-ops/webhook-sender=true`; the remediation API accepts traffic only from the diagnostic workload.
-
-| HTTP status | Meaning |
-| --- | --- |
-| 200 | Incident handled. Response contains status, reason, summary, and action. The call is synchronous and can take up to two minutes. |
-| 401 | Token is missing or invalid. |
-| 403 | Namespace is outside this agent instance scope. |
-| 409 | Submitted workload does not match the Pod Deployment. |
-| 422 | Invalid request, missing Pod, or a Pod not owned by a Deployment. |
-| 502 | Kubernetes API failed while ownership was checked. |
-| 503 | Webhook is disabled because no token is configured. |
 
 ## PoC limitations
 

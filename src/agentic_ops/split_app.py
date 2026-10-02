@@ -23,7 +23,7 @@ def build_app():
     from kubernetes import client, config
 
     from .acr import AcrRegistry
-    from .aks import AksActionExecutor, AksDiagnosticProvider, resolve_pod_workload
+    from .aks import AksActionExecutor, AksDiagnosticProvider
     from .foundry import FoundryDiagnosticProvider
     from .orchestrator import IncidentOrchestrator
     from .safety import SelfCurePolicy
@@ -57,11 +57,7 @@ def build_app():
         )
         orchestrator = IncidentOrchestrator(diagnostics, remediation_agent=remediation)
         watcher = PodWatcher(core, apps, namespace, orchestrator.handle)
-        return create_app(
-            orchestrator,
-            resolve_workload=lambda ns, pod: resolve_pod_workload(core, apps, ns, pod),
-            webhook_token=os.environ.get("AGENTIC_OPS_WEBHOOK_TOKEN") or None,
-            watcher=watcher,
-        )
+        return create_app(watcher=watcher)
 
     raise ValueError("AGENTIC_OPS_ROLE must be diagnostic, remediation, or all-in-one")
+

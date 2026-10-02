@@ -80,13 +80,13 @@ GitHub Actions runs the test suite on pushes and pull requests. The suite covers
 
 ### Coverage snapshot
 
-Local measurement on Python 3.12 on **2026-10-01**: **70 tests passed**. Coverage was measured across all modules in `src/agentic_ops`, including modules not imported by the tests.
+Local measurement on Python 3.12 on **2026-10-02**: **62 tests passed**. Coverage was measured across all modules in `src/agentic_ops`, including modules not imported by the tests.
 
 | Metric | Result |
 | --- | --- |
-| Statement (line) coverage | **74.4%** (491 of 660 executable statements) |
-| Branch coverage | **70.5%** (110 of 156 branches) |
-| Combined statement and branch coverage | **73.7%** |
+| Statement (line) coverage | **73.2%** (449 of 613 executable statements) |
+| Branch coverage | **69.0%** (98 of 142 branches) |
+| Combined statement and branch coverage | **72.5%** |
 
 Selected module results below use the combined statement and branch metric:
 
@@ -95,7 +95,7 @@ Selected module results below use the combined statement and branch metric:
 | `agents.py`, `foundry.py` | 100% |
 | `safety.py` | 95% |
 | `orchestrator.py` | 93% |
-| `aks.py` | 80% |
+| `aks.py` | 79% |
 | `watcher.py` | 53% |
 | `remote.py`, `split_app.py` | 0% |
 
@@ -275,3 +275,4 @@ To delete the complete resource group and all resources in it:
 ~~~
 
 Resource-group deletion is destructive. Review the script's confirmation and `-WhatIf` options before using it.
+

@@ -65,7 +65,7 @@ The system does **not hunt** by polling without purpose. It follows an event-dri
 ### Reference scenario: a container enters a crash loop
 
 1. **A container enters a crash loop.** The kubelet restarts it several times and then sets the state to `CrashLoopBackOff`.
-2. **A `CrashLoopBackOff` event fires.** A lightweight watcher listens to the Kubernetes Events API (`reason: BackOff`) or a Prometheus/Alertmanager rule detects `kube_pod_container_status_waiting_reason="CrashLoopBackOff"` and sends a webhook to the orchestrator.
+2. **A `CrashLoopBackOff` event fires.** A lightweight watcher listens to the Kubernetes Events API (`reason: BackOff`) and forwards the signal directly to the orchestrator.
    - `CrashLoopBackOff` is a useful trigger threshold because the kubelet has already made multiple attempts; the system does not react to a single transient restart.
 3. **The orchestrator opens an incident.** It deduplicates by `namespace/pod/deployment` and rate-limits activity. If a deployment already has an open or recently closed incident, the existing ticket is updated instead of starting a new cycle.
 4. **Agent Support gathers read-only facts:**
@@ -163,3 +163,4 @@ The system is production-ready when:
 ## Key concepts
 
 K8s Self-Cure for safe, reversible actions · Agent Support for diagnostics and RCA · Human Support for higher-impact decisions · observability from day zero · continuous evaluation with quality gates · grounding and safety (tools are the source of truth) · event-driven triggers instead of polling
+

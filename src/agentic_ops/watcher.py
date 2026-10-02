@@ -17,7 +17,7 @@ class PodWatcher:
     """Turns image-pull failures in one namespace into incident triggers.
 
     This is the event source that makes the PoC automatic: no external alerting
-    is required. The webhook remains available for manual or external triggers.
+    is required.
     """
 
     def __init__(
@@ -68,3 +68,4 @@ class PodWatcher:
             except Exception:  # noqa: BLE001 - reconnect on API/watch errors
                 log.exception("pod watch interrupted; reconnecting")
                 stop.wait(5)
+

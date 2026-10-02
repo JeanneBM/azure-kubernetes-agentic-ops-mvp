@@ -26,7 +26,7 @@ Create the required token Secret before applying the manifest:
 kubectl create secret generic agentic-ops-remediation   --namespace agentic-ops   --from-literal=token="$(openssl rand -base64 32)"
 ~~~
 
-The diagnostic agent sends typed Facts to the cluster-internal remediation Service. The remediation API rejects requests without this token. The NetworkPolicy allows its ingress only from the diagnostic pod label; it also retains the optional webhook ingress.
+The diagnostic agent sends typed Facts to the cluster-internal remediation Service. The remediation API rejects requests without this token. The NetworkPolicy allows its ingress only from the diagnostic pod label. The diagnostic workload has no incoming incident API; its ingress policy denies incoming connections.
 
 ## Egress boundary
 
@@ -37,3 +37,4 @@ Before a production deployment, enforce the final boundary at the network layer:
 ## Rollback
 
 Switching AGENTIC_OPS_ROLE back to all-in-one is supported only for local compatibility. The supplied AKS manifest always uses the two-workload design.
+

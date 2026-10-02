@@ -30,19 +30,6 @@ def workload_of(apps: client.AppsV1Api, pod: client.V1Pod) -> str | None:
     return None
 
 
-def resolve_pod_workload(
-    core: client.CoreV1Api, apps: client.AppsV1Api, namespace: str, pod_name: str
-) -> str | None:
-    """Deployment that really owns the named pod, or None if the pod is gone or not owned by one."""
-    try:
-        pod = core.read_namespaced_pod(pod_name, namespace)
-    except client.exceptions.ApiException as error:
-        if error.status == 404:
-            return None
-        raise
-    return workload_of(apps, pod)
-
-
 def find_pull_failures(pod: client.V1Pod) -> tuple[PullFailure, ...]:
     images = {c.name: c.image for c in pod.spec.containers}
     failures = []
@@ -177,3 +164,4 @@ class AksActionExecutor:
             and (status.updated_replicas or 0) == wanted
             and (status.available_replicas or 0) == wanted
         )
+

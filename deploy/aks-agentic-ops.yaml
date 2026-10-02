@@ -73,19 +73,6 @@ roleRef:
 apiVersion: v1
 kind: Service
 metadata:
-  name: agentic-ops-diagnostic
-  namespace: agentic-ops
-spec:
-  selector:
-    app: agentic-ops
-    role: diagnostic
-  ports:
-    - port: 8080
-      targetPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
   name: agentic-ops-remediation
   namespace: agentic-ops
 spec:
@@ -107,14 +94,7 @@ spec:
       app: agentic-ops
       role: diagnostic
   policyTypes: ["Ingress"]
-  ingress:
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              agentic-ops/webhook-sender: "true"
-      ports:
-        - protocol: TCP
-          port: 8080
+  ingress: []
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -183,12 +163,6 @@ spec:
                 secretKeyRef:
                   name: agentic-ops-remediation
                   key: token
-            - name: AGENTIC_OPS_WEBHOOK_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: agentic-ops-webhook
-                  key: token
-                  optional: true
           resources:
             requests: {cpu: 50m, memory: 128Mi}
             limits: {memory: 256Mi}
@@ -244,3 +218,4 @@ spec:
             httpGet: {path: /healthz, port: 8080}
           livenessProbe:
             httpGet: {path: /healthz, port: 8080}
+

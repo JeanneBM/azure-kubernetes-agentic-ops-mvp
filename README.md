@@ -80,26 +80,32 @@ GitHub Actions runs the test suite on pushes and pull requests. The suite covers
 
 ### Coverage snapshot
 
-Local measurement on Python 3.12 on **2026-10-02**: **62 tests passed**. Coverage was measured across all modules in `src/agentic_ops`, including modules not imported by the tests.
+Local measurement on Python 3.12 on **2026-10-02**: **63 tests passed**. Coverage was measured across all modules in `src/agentic_ops`, including modules not imported by the tests.
 
 | Metric | Result |
 | --- | --- |
-| Statement (line) coverage | **73.2%** (449 of 613 executable statements) |
-| Branch coverage | **69.0%** (98 of 142 branches) |
-| Combined statement and branch coverage | **72.5%** |
+| Statement (line) coverage | **85.4%** (487 of 570 executable statements) |
+| Branch coverage | **72.3%** (94 of 130 branches) |
+| Combined statement and branch coverage | **83.0%** |
 
-Selected module results below use the combined statement and branch metric:
+Module results below use the combined statement and branch metric:
 
 | Module | Coverage |
 | --- | --- |
-| `agents.py`, `foundry.py` | 100% |
+| `__init__.py` | 100% |
+| `acr.py` | 90% |
+| `agents.py` | 100% |
+| `aks.py` | 90% |
+| `contracts.py` | 97% |
+| `foundry.py` | 100% |
+| `orchestrator.py` | 96% |
+| `remote.py` | 49% |
 | `safety.py` | 95% |
-| `orchestrator.py` | 93% |
-| `aks.py` | 79% |
+| `split_app.py` | 30% |
 | `watcher.py` | 53% |
-| `remote.py`, `split_app.py` | 0% |
+| `web.py` | 100% |
 
-The main gaps are the HTTP handoff between agents, construction of the separate workloads, and parts of the watcher lifecycle. Tests of the two-agent logic do not currently exercise the remote HTTP transport or workload bootstrap modules.
+The main remaining gap is the HTTP handoff between agents. Workload construction and parts of the watcher lifecycle also require further tests.
 
 This is a dated local snapshot, not a live CI coverage result. The existing CI workflow runs pytest without collecting coverage. The local measurement used separately installed dependencies rather than the exact `constraints.txt` environment used by CI.
 

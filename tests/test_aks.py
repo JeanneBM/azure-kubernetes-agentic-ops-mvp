@@ -40,7 +40,7 @@ def test_collect_reports_pull_failure_as_structured_fact():
     core = MagicMock()
     core.read_namespaced_pod.return_value = pod()
     core.list_namespaced_event.return_value = NS(items=[NS(reason="Failed", message="manifest unknown")])
-    facts = AksDiagnosticProvider(core, MagicMock()).collect(make_trigger())
+    facts = AksDiagnosticProvider(core).collect(make_trigger())
     assert facts.pull_failures[0].image == OLD
     assert any(e.name == "image-pull-failures" for e in facts.items)
     core.read_namespaced_pod_log.assert_not_called()
@@ -105,3 +105,4 @@ def test_verify_times_out_when_pods_never_become_available():
     clock = iter(range(0, 1000, 10))
     executor = AksActionExecutor(apps, verify_timeout=30, sleep=lambda s: None, monotonic=lambda: next(clock))
     assert executor.verify(ACTION) is False
+

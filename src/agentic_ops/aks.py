@@ -10,15 +10,6 @@ from .contracts import ActionRequest, Evidence, Facts, IncidentTrigger, PullFail
 PULL_REASONS = frozenset({"ImagePullBackOff", "ErrImagePull"})
 
 
-def _load_apis(core, apps):
-    if core is None or apps is None:
-        config.load_incluster_config()
-    return (
-        client.CoreV1Api() if core is None else core,
-        client.AppsV1Api() if apps is None else apps,
-    )
-
-
 def workload_of(apps: client.AppsV1Api, pod: client.V1Pod) -> str | None:
     """Name of the Deployment that owns the pod (Pod -> ReplicaSet -> Deployment)."""
     for owner in pod.metadata.owner_references or []:
@@ -43,8 +34,8 @@ def find_pull_failures(pod: client.V1Pod) -> tuple[PullFailure, ...]:
 class AksDiagnosticProvider:
     """Read-only AKS diagnostics using the in-cluster Kubernetes identity."""
 
-    def __init__(self, core: client.CoreV1Api | None = None, apps: client.AppsV1Api | None = None) -> None:
-        self._core, self._apps = _load_apis(core, apps)
+    def __init__(self, core: client.CoreV1Api) -> None:
+        self._core = core
 
     def collect(self, trigger: IncidentTrigger) -> Facts:
         pod = self._core.read_namespaced_pod(trigger.pod, trigger.namespace)
@@ -64,27 +55,7 @@ class AksDiagnosticProvider:
                 "; ".join(f"container={f.container} image={f.image}" for f in failures),
                 f"{pod_source}/spec",
             ))
-        else:
-            evidence.extend(self._previous_logs(pod, trigger))
         return Facts(tuple(evidence), groundedness=1.0, pull_failures=failures)
-
-    def _previous_logs(self, pod: client.V1Pod, trigger: IncidentTrigger) -> list[Evidence]:
-        result = []
-        for container in pod.spec.containers:
-            try:
-                logs = self._core.read_namespaced_pod_log(
-                    trigger.pod, trigger.namespace, container=container.name, previous=True, tail_lines=100
-                )
-            except client.exceptions.ApiException as error:
-                if error.status != 400:
-                    raise
-                logs = ""
-            result.append(Evidence(
-                f"previous-logs/{container.name}",
-                logs or "No previous container logs available",
-                f"k8s://logs/{trigger.namespace}/{trigger.pod}/{container.name}/previous",
-            ))
-        return result
 
     @staticmethod
     def _container_states(pod: client.V1Pod) -> str:

@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from agentic_ops import IncidentOrchestrator, IncidentStatus, OutOfScope, PolicyViolation
+from agentic_ops import IncidentOrchestrator, IncidentStatus, OutOfScope, SafeRemediationAgent
 from conftest import (
     NEW, FakeDiagnostics, FakeExecutor, FakeRegistry, make_facts, make_policy, make_trigger,
 )
@@ -12,7 +12,7 @@ from conftest import (
 def build(facts=None, *, executor=None, diagnostics=None, policy=None, **kwargs):
     diagnostics = diagnostics or FakeDiagnostics(facts if facts is not None else make_facts())
     executor = executor or FakeExecutor()
-    return IncidentOrchestrator(diagnostics, executor, policy or make_policy(), **kwargs), diagnostics, executor
+    return IncidentOrchestrator(diagnostics, remediation_agent=SafeRemediationAgent(policy or make_policy(), executor), **kwargs), diagnostics, executor
 
 
 def test_typo_is_fixed_and_incident_resolved():
@@ -127,3 +127,4 @@ def test_concurrent_signals_execute_the_action_once():
     first.join(5)
     assert second.deduplicated
     assert len(executor.actions) == 1
+

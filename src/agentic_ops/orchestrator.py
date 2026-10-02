@@ -7,9 +7,9 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Callable, Protocol
 
-from .agents import RemediationAgent, SafeRemediationAgent
+from .agents import RemediationAgent
 from .contracts import ActionRequest, Facts, Incident, IncidentStatus, IncidentTrigger, Recommendation
-from .safety import ActionExecutor, OutOfScope, PolicyViolation, SelfCurePolicy
+from .safety import OutOfScope, PolicyViolation
 
 audit = logging.getLogger("agentic_ops.audit")
 
@@ -39,10 +39,8 @@ class IncidentOrchestrator:
     def __init__(
         self,
         diagnostics: DiagnosticProvider,
-        executor: ActionExecutor | None = None,
-        policy: SelfCurePolicy | None = None,
         *,
-        remediation_agent: RemediationAgent | None = None,
+        remediation_agent: RemediationAgent,
         groundedness_threshold: float = 0.85,
         cooldown: timedelta = timedelta(minutes=15),
         clock: Callable[[], datetime] | None = None,
@@ -51,13 +49,6 @@ class IncidentOrchestrator:
             raise ValueError("groundedness_threshold must be between 0 and 1")
         if cooldown < timedelta(0):
             raise ValueError("cooldown cannot be negative")
-        if remediation_agent is None:
-            if executor is None or policy is None:
-                raise ValueError("executor and policy are required without remediation_agent")
-            remediation_agent = SafeRemediationAgent(policy, executor)
-        elif executor is not None or policy is not None:
-            raise ValueError("pass either remediation_agent or executor and policy, not both")
-
         self._diagnostics = diagnostics
         self._remediation_agent = remediation_agent
         self._groundedness_threshold = groundedness_threshold
@@ -168,3 +159,4 @@ class IncidentOrchestrator:
             "action_executed": executed,
             "evidence_sources": [item.source for item in incident.facts.items],
         }))
+

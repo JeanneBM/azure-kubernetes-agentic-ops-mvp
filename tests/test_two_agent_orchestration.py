@@ -50,3 +50,17 @@ def test_orchestrator_uses_the_isolated_second_agent_outcome():
     assert second.calls == 1
     assert result.incident.status is IncidentStatus.ESCALATED
     assert result.incident.reason == "second agent declined the action"
+
+
+
+
+def test_runtime_requires_an_explicit_supported_role(monkeypatch):
+    import pytest
+    from agentic_ops.split_app import build_app
+
+    monkeypatch.delenv("AGENTIC_OPS_ROLE", raising=False)
+    with pytest.raises(ValueError, match="diagnostic or remediation"):
+        build_app()
+    monkeypatch.setenv("AGENTIC_OPS_ROLE", "unsupported")
+    with pytest.raises(ValueError, match="diagnostic or remediation"):
+        build_app()

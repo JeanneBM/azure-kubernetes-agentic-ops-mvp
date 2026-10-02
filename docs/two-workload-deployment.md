@@ -34,7 +34,6 @@ The code and identities prevent the remediation agent from using Foundry or a we
 
 Before a production deployment, enforce the final boundary at the network layer: allow remediation egress only to the AKS API, ACR, DNS, and the workload's required Azure identity endpoints, using Azure Firewall, an egress gateway, or a CNI policy with FQDN support. The diagnostic workload may additionally reach the approved research and Foundry endpoints.
 
-## Rollback
+## Runtime roles
 
-Switching AGENTIC_OPS_ROLE back to all-in-one is supported only for local compatibility. The supplied AKS manifest always uses the two-workload design.
-
+Set AGENTIC_OPS_ROLE explicitly to diagnostic or remediation. The application rejects missing or unsupported roles; diagnosis and remediation always run as separate workloads in this PoC.

@@ -5,7 +5,7 @@ import os
 
 from .agents import SafeRemediationAgent
 from .remote import HttpRemediationAgent, create_remediation_app
-from .web import build_app as build_legacy_app, create_app
+from .web import create_app
 
 
 def build_app():
@@ -13,12 +13,11 @@ def build_app():
 
     AGENTIC_OPS_ROLE=diagnostic owns watcher, AKS reads, Foundry diagnosis, and
     the authenticated internal handoff. AGENTIC_OPS_ROLE=remediation owns the
-    narrow write capability. The legacy all-in-one mode remains only for local
-    compatibility and is never used by the supplied AKS manifest.
+    narrow write capability. Both roles are required by the AKS manifest.
     """
-    role = os.environ.get("AGENTIC_OPS_ROLE", "all-in-one")
-    if role == "all-in-one":
-        return build_legacy_app()
+    role = os.environ.get("AGENTIC_OPS_ROLE")
+    if role not in {"diagnostic", "remediation"}:
+        raise ValueError("AGENTIC_OPS_ROLE must be diagnostic or remediation")
 
     from kubernetes import client, config
 
@@ -46,7 +45,7 @@ def build_app():
 
     if role == "diagnostic":
         diagnostics = FoundryDiagnosticProvider(
-            AksDiagnosticProvider(core, apps),
+            AksDiagnosticProvider(core),
             endpoint=os.environ["AZURE_AI_FOUNDRY_ENDPOINT"],
             deployment=os.environ["AZURE_AI_FOUNDRY_DEPLOYMENT"],
         )
@@ -59,5 +58,4 @@ def build_app():
         watcher = PodWatcher(core, apps, namespace, orchestrator.handle)
         return create_app(watcher=watcher)
 
-    raise ValueError("AGENTIC_OPS_ROLE must be diagnostic, remediation, or all-in-one")
 

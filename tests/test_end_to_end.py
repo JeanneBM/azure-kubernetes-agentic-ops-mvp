@@ -1,5 +1,5 @@
 """Real orchestrator, policy, ACR client, Foundry client, AKS adapters and watcher,
-wired like build_app() does, against an in-memory cluster and mocked HTTP services."""
+using explicit agent collaborators against an in-memory cluster and mocked HTTP services."""
 import json
 from types import SimpleNamespace as NS
 
@@ -7,6 +7,7 @@ import httpx
 from kubernetes import client
 
 from agentic_ops import IncidentOrchestrator, SelfCurePolicy
+from agentic_ops.agents import SafeRemediationAgent
 from agentic_ops.acr import AcrRegistry
 from agentic_ops.aks import AksActionExecutor, AksDiagnosticProvider
 from agentic_ops.foundry import FoundryDiagnosticProvider
@@ -64,7 +65,7 @@ def wire(model_image, registry_has=(NEW,)):
             return NS(token="aad")
 
     diagnostics = FoundryDiagnosticProvider(
-        AksDiagnosticProvider(cluster, cluster), endpoint="https://f.openai.azure.com", deployment="gpt",
+        AksDiagnosticProvider(cluster), endpoint="https://f.openai.azure.com", deployment="gpt",
         http_client=httpx.Client(transport=httpx.MockTransport(foundry)), token_provider=lambda: "t",
     )
     policy = SelfCurePolicy(
@@ -73,7 +74,7 @@ def wire(model_image, registry_has=(NEW,)):
     )
     executor = AksActionExecutor(cluster, verify_timeout=5, poll_interval=0, sleep=lambda s: None)
     results = []
-    orchestrator = IncidentOrchestrator(diagnostics, executor, policy)
+    orchestrator = IncidentOrchestrator(diagnostics, remediation_agent=SafeRemediationAgent(policy, executor))
     watcher = PodWatcher(cluster, cluster, "payments", lambda t: results.append(orchestrator.handle(t)))
     return cluster, watcher, results
 
@@ -100,3 +101,4 @@ def test_image_that_exists_but_fails_to_pull_is_not_touched():
     watcher.process_pod(pod())
     assert results[0].incident.status.value == "escalated"
     assert cluster.patches == []
+
